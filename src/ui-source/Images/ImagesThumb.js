@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { NextPage } from "next";
 import { Col, Row } from 'react-bootstrap';
-import ReactImageMagnify from 'react-image-magnify';
-import ReactImageZoom from 'react-image-zoom';
-import { ImagesPath } from 'src/constants/ImagesPath';
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 // [{ src: ImagesPath.PRODUCT.src, alt: "" }, { src: ImagesPath.PRODUCT_2.src, alt: "" }, { src: ImagesPath.SP.src, alt: "" }]
-const ImagesThumb = ({ listImages }) => {
+const ImagesThumb = ({ listImages = [] }) => {
     let count = -1;
     listImages = listImages.map((item, index) => {
         count++;
@@ -31,18 +27,7 @@ const ImagesThumb = ({ listImages }) => {
     return (
         <div className="images-thumb">
             <Row className="images-thumb__row">
-                <Col xs={2} className="images-thumb__center">
-                    <div className="images-thumb__list">
-                        {listImagesStatus.map((image, index) => {
-                            return (
-                                <div key={image.id} className={`images-thumb__item ${image.isSelected && 'selected'}`}>
-                                    <img onClick={selectImage} data-imgid={image.id} className="images-thumb__item-img" src={image.src} alt={image.alt} />
-                                </div>
-                            )
-                        })}
-                    </div>
-                </Col>
-                <Col xs={10}>
+                <Col >
                     <div className="img-box">
                         <div className="img">
                             <Zoom>
@@ -56,7 +41,17 @@ const ImagesThumb = ({ listImages }) => {
 
                     </div>
                 </Col>
-
+            </Row>
+            <Row className="images-thumb__center">
+                <div className="images-thumb__list">
+                    {listImagesStatus.map((image, index) => {
+                        return (
+                            <div key={image.id} className={`images-thumb__item ${image.isSelected && 'selected'}`}>
+                                <img onClick={selectImage} data-imgid={image.id} className="images-thumb__item-img" src={image.src} alt={image.alt} />
+                            </div>
+                        )
+                    })}
+                </div>
             </Row>
         </div >
     );

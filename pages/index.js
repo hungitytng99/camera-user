@@ -25,7 +25,7 @@ export default function Home() {
     <Layout>
       <div className="home">
         <Container>
-          <Row class="home__carousel">
+          <Row className="home__carousel">
             <Col xs={12}>
               <Carousel
                 autoPlay={true}

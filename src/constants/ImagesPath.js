@@ -4,6 +4,7 @@ import banner_1 from 'assets/images/homepage/banner/home-banner-1.jpg';
 import banner_2 from 'assets/images/homepage/banner/home-banner-2.jpg';
 import banner_3 from 'assets/images/homepage/banner/home-banner-3.jpg';
 import review from 'assets/images/homepage/news/review.jpg'
+import news_thumb from 'assets/images/homepage/news/news-thumb.jpg'
 
 
 const ImagesPath = {
@@ -13,6 +14,7 @@ const ImagesPath = {
     HOME_BANNER_2: banner_2,
     HOME_BANNER_3: banner_3,
     REVIEW: review,
+    NEWS_THUMB: news_thumb
 
 }
 export { ImagesPath }

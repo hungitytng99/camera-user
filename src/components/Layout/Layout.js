@@ -13,7 +13,7 @@ function Layout(props) {
             <div className="layout__header">
                 <Header />
             </div>
-            <div className="layout__content">
+            <div className="layout__content" style={{marginTop: "115px"}}>
                 {children}
             </div>
             <div className="layout__footer">
