@@ -1,4 +1,4 @@
-import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, InputGroup, Row } from 'react-bootstrap';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ImagesThumb from 'ui-source/Images/ImagesThumb';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -77,13 +77,77 @@ const Category = (props) => {
             </Head>
             <Layout>
                 <Container>
+                    <Row>
+                        <Col>
+                            <Breadcrumb className="product__breadcrumb">
+                                <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
+                                <Breadcrumb.Item active>
+                                    Tên category
+                                </Breadcrumb.Item>
+                            </Breadcrumb>
+                        </Col>
+                    </Row>
                     <CardWithTitle title="Camera dahua">
-                        <Row>
-                            <Col xs={12} sm={6} md={4} lg={3}>
-                                <CardProduct />
-                            </Col>
-                        </Row>
+
                     </CardWithTitle>
+                    <Row>
+                        <Col xs={12} md={9}>
+                            <Row>
+                                <Col xs={12} sm={6} md={6} lg={4}>
+                                    <CardProduct />
+                                </Col>
+                                <Col xs={12} sm={6} md={6} lg={4}>
+                                    <CardProduct />
+                                </Col>
+                                <Col xs={12} sm={6} md={6} lg={4}>
+                                    <CardProduct />
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Col md={3} className="hide-on-768">
+                            <div className="category__filter">
+                                <div className="category__filter-price">
+                                    <div className="category__filter-title">
+                                        Lọc theo giá
+                                    </div>
+                                    <ul className="category__filter-price-list">
+                                        <li className="category__filter-price-item">
+                                            <input type="radio" id="price-1" name="price" value="30" />
+                                            <label htmlFor="price-1">Dưới 1 triệu</label>
+                                        </li>
+                                        <li className="category__filter-price-item">
+                                            <input type="radio" id="price-2" name="price" value="30" />
+                                            <label htmlFor="price-2">Từ 1-2 triệu</label>
+                                        </li>
+                                        <li className="category__filter-price-item">
+                                            <input type="radio" id="price-3" name="price" value="30" />
+                                            <label htmlFor="price-3">Từ 2-4 triệu</label>
+                                        </li>
+                                        <li className="category__filter-price-item">
+                                            <input type="radio" id="price-3" name="price" value="30" />
+                                            <label htmlFor="price-3">Hơn 4 triệu</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="category__filter-category">
+                                    <div className="category__filter-title">
+                                        Danh mục sản phẩm
+                                    </div>
+                                    <ul className="category__filter-category-list">
+                                        <li className="category__filter-category-item">
+                                            Danh mục
+                                        </li>
+                                        <li className="category__filter-category-item">
+                                            Danh mục
+                                        </li>
+                                        <li className="category__filter-category-item">
+                                            Danh mục
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
                 </Container>
             </Layout>
             <Modal
