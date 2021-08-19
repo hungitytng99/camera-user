@@ -3,52 +3,56 @@
     display: flex
     justify-content: center
     flex-direction: column
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    z-index: 999
+    &-bars
+        display: none
+        font-size: 24px
+        color: #686868
+        &:hover
+            cursor: pointer
+            color: #3f3f3f
 .header-static
     height: $header-static-height
     width: 100%
     background-color: #222222
-    color: $med-grey-color
     font-size: 14.4px
-    padding: 0 30px
     font-weight: 450
     font-family: "Open Sans", sans-serif
+    color: #bebebe
+    padding: 0 10px
 
+@media screen and (max-width: 576px)
 .static-icon
-    margin: 0 6px 0 30px
+    margin-right: 6px
     font-size: 16px
-
     .header-static__left
         margin: 0 6px 0 0px
     &.phone
         transform: rotate(-45deg)
 
-
 .header-static__right
     &-setting
-        color: $med-grey-color
+        color: #bebebe
+        margin-right: 8px
         &:hover
             color: $primary
-        &.-text
+        &-text
             margin-top: 2px
     &-login
-        color: $med-grey-color
+        color: #bebebe
 
 /*********************** Header dynamic ***********************/
 .header-dynamic
-    position: sticky
-    left: 0
-    right: 0
-    top: 0
     min-height: $header-dynamic-height
     width: 100%
-    padding-left: 30px
-    right: 14px
+    padding-left: 20px
     border-bottom: 1px solid $light-grey-color
     background-color: $white
     z-index: 2
-
-    &__category-icon
-        display: none
 
     &__logo
         width: 10.9%
@@ -69,31 +73,31 @@
             display: flex
             flex-wrap: wrap
             margin: 0
-            margin-right: 70px
-
         &-item
-            padding: 0px 27px
-            // text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+            margin: 0px 20px
             line-height: 30px
-
+            &:hover
+                color: $primary
+                cursor: pointer
             &.-search
                 cursor: pointer
-
                 &:hover
                     color: $primary
-
+            &.has-dropdown
+                display: flex
+                align-items: center
+                position: relative
         &-link
-            color: $black-color
-
+            display: block
             &.--active
                 color: $primary
 
             &:hover
                 color: $primary
-
-        &-icon
-            &:hover
-                cursor: pointer
+    &__down-icon
+        margin-left: 4px
+        &:hover
+            cursor: pointer
 
     &__right
         margin-top: 1px
@@ -104,115 +108,39 @@
 
         &.cart-icon
             cursor: pointer
+.header-category__children-list
+    z-index: 2
+    position: absolute
+    display: none
+    top: 110%
+    left: 0
+    list-style: none
+    padding-left: 0px
+    background-color: $white
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.05)
+    border: 1px solid rgba(0, 0, 0, 0.05)
+    animation: appear ease-in 0.3s
 
-// Category menu
+.header-category__children-item
+    padding: 9px 10px
+
+.header-category__children-link
+    display: block
+    width: 100%
+    font-size: 14px
+    color: #333
+
+// children product kind 2: hover
+.header-dynamic__category-item.has-dropdown:hover .header__category-dropdown
+    display: block
+    width: 232px
+    top: 100%
+    animation: appear linear 0.3s
+    z-index: 1
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2)
 
 @keyframes appear
     from
         opacity: 0
     to
         opacity: 1
-
-#category-menu-status
-    display: none
-
-.category__status-checkbox:checked~.modal__overlay-category
-    display: block
-
-.category__status-checkbox:checked~.category-menu
-    transform: translateX(0%)
-    opacity: 1
-    z-index: 999
-    display: block
-
-.modal__overlay-category
-    position: fixed
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-    background-color: rgba(0, 0, 0, 0.4)
-    animation: appear linear 0.3s
-    -webkit-animation: appear linear 0.3s
-    -moz-animation: appear linear 0.3s
-    -ms-animation: appear linear 0.3s
-    -o-animation: appear linear 0.3s
-    cursor: pointer
-    z-index: 998
-    display: none
-
-.modal.modal-category
-    display: none
-
-.category-menu
-    position: fixed
-    top: 0
-    left: 0
-    bottom: 0
-    background-color: $white
-    width: 80%
-    transform: translateX(-100%)
-    opacity: 0
-    transition: all linear 0.3s
-    -webkit-transition: all linear 0.3s
-    -moz-transition: all linear 0.3s
-    -ms-transition: all linear 0.3s
-    -o-transition: all linear 0.3s
-    z-index: 999
-
-    &__title
-        display: flex
-        align-items: center
-        justify-content: center
-        width: 100%
-        height: 40px
-        background-color: #000
-        color: $white
-
-    &__title-text
-        text-transform: uppercase
-        font-size: 17px
-
-    &__list
-        list-style: none
-        padding-left: 0px
-        margin: 0
-
-    &__item
-        display: flex
-        align-items: center
-        border-bottom: 1px solid rgb(233, 233, 233)
-
-    &__link
-        text-transform: uppercase
-        font-size: 16px
-        padding: 15px 20px
-        width: 100%
-
-    &__link:active
-        color: #999
-
-    &__item-icon
-        display: flex
-        justify-content: center
-        align-items: center
-        width: 44px
-        height: 44px
-        border-left: 1px solid rgb(233, 233, 233)
-
-    &__icon
-        font-size: 13px
-        color: #999
-
-    &__item-icon
-        padding: 15px 10px 15px 25px
-        font-size: 19px
-
-.categoru-menu__item-search
-    width: 100%
-    height: 40px
-    outline: none
-    border: none
-    padding-left: 15px
-    padding-right: 20px
-    font-size: 16px

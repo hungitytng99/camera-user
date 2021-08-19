@@ -3,20 +3,11 @@ import { NextPage } from "next";
 import * as Yup from 'yup';
 import { ErrorMessage, Field } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
-interface Props {
-    errors?: any,
-    label: any,
-    touched?: any,
-    placeholder?: string,
-    name: string,
-    isRequired?: boolean,
-    type?: string,
-    value?: string,
-    rows?: number,
-    disabled?: boolean,
-}
-const InputField: NextPage<Props> = (props) => {
+
+
+const InputField = (props) => {
     const { disabled, rows, type = "input", errors, label, name, touched, placeholder, isRequired, value } = props;
     const hasError = errors[name] && touched[name];
 
@@ -42,7 +33,7 @@ const InputField: NextPage<Props> = (props) => {
                 {
                     errors[name] && touched[name] &&
                     <div className="input-field__error">
-                        <FontAwesomeIcon className="input-field__error-icon" icon={["fas", "info-circle"]} />
+                        <FontAwesomeIcon className="input-field__error-icon" icon={faInfoCircle} />
                         <span>{errors[name]}</span>
                     </div>
                 }

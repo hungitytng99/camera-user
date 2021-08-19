@@ -10,7 +10,7 @@
             margin: 0
 
         &-feature
-            font-size: 23px
+            font-size: 22px
             font-weight: 700
             text-shadow: 1px 0px 1px $light-grey-color
             margin-bottom: 8px
@@ -36,32 +36,40 @@
         border-radius: 4px
         &-title
             font-size: 22px
+    &__carousel
+        margin-top: 115px
     &__carousel-arrow
         &-left
             position: absolute,
             z-index: 2,
-            top: calc(50% - 15px),
+            top: calc(50%),
+            transform: translateY(-50%)
             left: 10px
-            width: 35px,
-            height: 35px,
-            cursor: pointer,
+            width: 35px
+            height: 35px
+            cursor: pointer
             background-color: rgb(130,98,181,0.7)
             border-radius: 50%
             color: $white
             display: flex
             align-items: center
             justify-content: center
+            &:hover
+                background-color: rgb(130,98,181,0.9)
         &-right
-            position: absolute,
-            z-index: 2,
-            top: calc(50% - 15px),
+            position: absolute
+            z-index: 2
+            top: calc(50%)
+            transform: translateY(-50%),
             right: 10px
-            width: 35px,
-            height: 35px,
-            cursor: pointer,
+            width: 35px
+            height: 35px
+            cursor: pointer
             background-color: rgb(130,98,181,0.7)
             border-radius: 50%
             color: $white
             display: flex
             align-items: center
             justify-content: center
+            &:hover
+                background-color: rgb(130,98,181,0.9)

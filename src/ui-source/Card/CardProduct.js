@@ -1,11 +1,49 @@
 import { ImagesPath } from 'constants/ImagesPath';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faTimes } from '@fortawesome/free-solid-svg-icons'
+import Modal from 'react-modal';
+import ContactForm from 'components/ContactForm';
 
+
+Modal.setAppElement('#__next');
+const defaultProduct = {
+    id: 0,
+    title: "",
+    description: "",
+    main_image: "",
+    all_image: "",
+    price: "",
+    material: "",
+    sub_category: "",
+    main_category: "",
+    slug: "/"
+}
 function CardProduct(props) {
+    const { detailText = "Detail", product = defaultProduct,
+        contactText = "Contact", discount = 0 } = props;
+    const [contactModal, setContactModal] = useState(false);
+    const [productName, setProductName] = useState("");
+
+    const showContactModal = (e) => {
+        e.stopPropagation();
+        setProductName(e.currentTarget.dataset.productname);
+        setContactModal(true);
+    }
+
+    const hideContactModal = () => {
+        setContactModal(false);
+    }
+
+    const closeContactForm = (e) => {
+        setContactModal(false);
+    }
+
+    const redirectToDetailProduct = (e) => {
+        location.replace("/" + e.currentTarget.dataset.href);
+    }
     return (
         <div className="card-product">
             <div className="card-product__item-order ">
@@ -15,7 +53,7 @@ function CardProduct(props) {
                             <Image src={ImagesPath.PRODUCT_6} layout="fill" objectFit="contain" alt="product" />
                         </a>
                     </Link>
-                    <button className="card-product__item-order-btn">
+                    <button onClick={showContactModal} className="card-product__item-order-btn">
                         Liên hệ
                     </button>
                 </div>
@@ -36,6 +74,25 @@ function CardProduct(props) {
                 </div>
 
             </div>
+            <Modal
+                isOpen={contactModal}
+                onRequestClose={hideContactModal}
+                className="Modal"
+                overlayClassName="Overlay"
+            >
+                <div className="contact-form__header">
+                    <div className="contact-form__header-text">
+                        Leave your contact information
+                        <span>We'll contact you as soon as possible</span>
+                    </div>
+                    <div onClick={hideContactModal} className="contact-form__header-close">
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div>
+                </div>
+                <div className="contact-form__form">
+                    <ContactForm closeContact={closeContactForm} productName={productName} productId={product.id} />
+                </div>
+            </Modal>
         </div>
     );
 }

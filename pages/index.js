@@ -25,8 +25,8 @@ export default function Home() {
     <Layout>
       <div className="home">
         <Container>
-          <Row>
-            <Col>
+          <Row class="home__carousel">
+            <Col xs={12}>
               <Carousel
                 autoPlay={true}
                 interval={6000}
@@ -55,7 +55,7 @@ export default function Home() {
             </div>
           </Row>
           <Row>
-            <Col lg={3}>
+            <Col xs={12} sm={6} md={4} lg={3}>
               <CardProduct />
             </Col>
           </Row>
@@ -93,7 +93,7 @@ export default function Home() {
               </Col>
             </Row>
           </CardWithTitle>
-          <CardWithTitle title="Camera theo">
+          <CardWithTitle title="Camera theo category">
             <Row>
               <Col lg={3}>
                 <CardProduct />
@@ -117,7 +117,7 @@ export default function Home() {
               renderArrowNext={(onClickHandler, hasNext, label) =>
                 hasNext && (
                   <div onClick={onClickHandler} title={label} className="home__carousel-arrow-right">
-                    <FontAwesomeIcon icon={faChevronRight}/>
+                    <FontAwesomeIcon icon={faChevronRight} />
                   </div>
                 )
               }
