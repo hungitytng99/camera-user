@@ -83,27 +83,17 @@ const Header = ({ listCategory = [] }) => {
                 <div className="header-dynamic__category ">
                     <ul className="header-dynamic__category-list flex-center ">
                         <li className="header-dynamic__category-item ">
-                            <a href=" " className="header-dynamic__category-link --active ">Home</a>
+                            <a href=" " className="header-dynamic__category-link --active ">Trang chủ</a>
                         </li>
                         <li className="header-dynamic__category-item ">
-                            <a href=" " className="header-dynamic__category-link ">Women</a>
+                            <a href=" " className="header-dynamic__category-link ">Sản phẩm</a>
                         </li>
                         <li className="header-dynamic__category-item ">
-                            <a href=" " className="header-dynamic__category-link ">Men</a>
+                            <a href=" " className="header-dynamic__category-link ">Giới thiệu</a>
                         </li>
                         <li className="header-dynamic__category-item ">
-                            <a href=" " className="header-dynamic__category-link ">About us</a>
+                            <a href=" " className="header-dynamic__category-link ">Liên hệ</a>
                         </li>
-                        <li className="header-dynamic__category-item ">
-                            <a href=" " className="header-dynamic__category-link ">Blog</a>
-                        </li>
-                        <li className="header-dynamic__category-item ">
-                            <a href=" " className="header-dynamic__category-link ">Collections</a>
-                        </li>
-                        <li className="header-dynamic__category-item ">
-                            <a href=" " className="header-dynamic__category-link ">Contact</a>
-                        </li>
-
                         <li className="header-dynamic__category-item ">
                             <i className="header-dynamic__category-item -search fas fa-search "></i>
                         </li>

@@ -108,11 +108,11 @@ function Footer() {
                         </Col>
                     </Row>
                 </Container>
-                <div class="footer-contact__item-underline "></div>
+                <div className="footer-contact__item-underline "></div>
                 <Container>
-                    <footer class="footer">
-                        <div class="footer-cpright">
-                            <div class="footer-cpright__left ">Shop camera Bắc Ninh, 2021
+                    <footer className="footer">
+                        <div className="footer-cpright">
+                            <div className="footer-cpright__left ">Shop camera Bắc Ninh, 2021
                             </div>
                         </div>
                     </footer>
