@@ -13,120 +13,114 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { categoryService } from 'data-services/category'
 
-export default function Home() {
-  const arrowStyles = {
-    position: 'absolute',
-    zIndex: 2,
-    top: 'calc(50% - 15px)',
-    width: 30,
-    height: 30,
-    cursor: 'pointer',
-  };
+export default function Home(props) {
+  const { listCategory } = props;
+  console.log(listCategory);
   return (
     <Layout>
       <div className="home">
-          <Row className="home__carousel">
-            <Col xs={12}>
-              <Carousel
-                autoPlay={true}
-                interval={6000}
-                showArrows={false}
-                infiniteLoop={true}
-                showThumbs={false}
-                emulateTouch={true}
-              >
-                <div className="home__banner-img">
-                  <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_1} alt="giang minh viet banner" />
-                </div>
-                <div className="home__banner-img">
-                  <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_2} alt="giang minh viet banner handmade" />
-                </div>
-                <div className="home__banner-img">
-                  <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_3} alt="giang minh viet banner handmade" />
-                </div>
-              </Carousel>
-            </Col>
-          </Row>
-          <Row>
-            <div className="home__text ">
-              {/* <p className="home__text-franco ">Siêu khuyến mại</p> */}
-              <p className="home__text-feature ">Sản phẩm bán chạy</p>
-              <div className="home__text -underline "></div>
+        <Row className="home__carousel">
+          <Col xs={12}>
+            <Carousel
+              autoPlay={true}
+              interval={6000}
+              showArrows={false}
+              infiniteLoop={true}
+              showThumbs={false}
+              emulateTouch={true}
+            >
+              <div className="home__banner-img">
+                <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_1} alt="giang minh viet banner" />
+              </div>
+              <div className="home__banner-img">
+                <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_2} alt="giang minh viet banner handmade" />
+              </div>
+              <div className="home__banner-img">
+                <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_3} alt="giang minh viet banner handmade" />
+              </div>
+            </Carousel>
+          </Col>
+        </Row>
+        <Row>
+          <div className="home__text ">
+            {/* <p className="home__text-franco ">Siêu khuyến mại</p> */}
+            <p className="home__text-feature ">Sản phẩm bán chạy</p>
+            <div className="home__text -underline "></div>
+          </div>
+        </Row>
+        <Row>
+          <Col xs={12} sm={6} md={4} lg={3}>
+            <CardProduct />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div className="home__post">
+              <h3 className="home__post-title">
+                Camera Wifi Không dây Chính Hãng 100%, Mới Full Box, Giảm đến 69%
+              </h3>
+              <div className="home__post-content">
+                <strong>Camera WiFi Không dây </strong> dễ sử dụng, <strong>CẮM LÀ CHẠY</strong> ai cũng có thể tự
+                cài đặt và lắp đặt được. <strong>Camera Wifi </strong> rất linh hoạt, tiện lợi
+                cho người dùng. Nếu sử dụng cho Gia đình, Cửa hàng, công ty vừa
+                và nhỏ thì <strong>Camera Wifi </strong> sẽ là lựa chọn hàng đầu bở nó rất tiết kiệm
+                chi phí so với camera giám sát có dây. Camera IP Giá Sỉ phân phối
+                và lắp đặt camera uy tín hàng đầu Việt Nam. Chúng tôi phân phối <strong> Camera
+                  Wifi Reolink </strong> tại Việt Nam, là thương hiệu <strong>Camera Wifi Tốt Nhất</strong>,
+                hoạt động ổn định với kết nối mạng băng tần kép 2,4 GHz và 5 GHz
+                bắt tín hiệu cực mạnh.<strong>Camera Wifi </strong> nhưng có độ phân giải 5MP siêu
+                nét 2K,  Zoom quang học 30 mét và nhiều tính năng thông minh.Khi
+                chọn CAMERAIPGIASI bạn yên tâm 100% bởi chúng tôi chỉ Bán <strong>Camera Wifi
+                  chính hãng </strong>, chất lượng, cam kết mang đến trải nghiệm tốt nhất cho khách
+                hàng.<strong>Camera Wifi </strong> siêu nét, đẳng cấp nhưng giá rất tốt và kèm nhiều
+                khuyến mãi.Hỗ trợ giao hàng siêu tốc 30 phút đến 4h, Lắp đặt tại nhà,
+                Bảo hành.Tư vấn miễn phí ngay bây giờ:
+                <Link href="tel:0923444555"><a style={{ color: "#e14d43" }}><strong> 0923.444.555 – 0932.123.654</strong></a></Link>
+              </div>
             </div>
-          </Row>
+          </Col>
+        </Row>
+        <CardWithTitle title="Camera không dây bán chạy">
           <Row>
-            <Col xs={12} sm={6} md={4} lg={3}>
+            <Col lg={3}>
               <CardProduct />
             </Col>
           </Row>
+        </CardWithTitle>
+        <CardWithTitle title="Camera theo category">
           <Row>
-            <Col>
-              <div className="home__post">
-                <h3 className="home__post-title">
-                  Camera Wifi Không dây Chính Hãng 100%, Mới Full Box, Giảm đến 69%
-                </h3>
-                <div className="home__post-content">
-                  <strong>Camera WiFi Không dây </strong> dễ sử dụng, <strong>CẮM LÀ CHẠY</strong> ai cũng có thể tự
-                  cài đặt và lắp đặt được. <strong>Camera Wifi </strong> rất linh hoạt, tiện lợi
-                  cho người dùng. Nếu sử dụng cho Gia đình, Cửa hàng, công ty vừa
-                  và nhỏ thì <strong>Camera Wifi </strong> sẽ là lựa chọn hàng đầu bở nó rất tiết kiệm
-                  chi phí so với camera giám sát có dây. Camera IP Giá Sỉ phân phối
-                  và lắp đặt camera uy tín hàng đầu Việt Nam. Chúng tôi phân phối <strong> Camera
-                    Wifi Reolink </strong> tại Việt Nam, là thương hiệu <strong>Camera Wifi Tốt Nhất</strong>,
-                  hoạt động ổn định với kết nối mạng băng tần kép 2,4 GHz và 5 GHz
-                  bắt tín hiệu cực mạnh.<strong>Camera Wifi </strong> nhưng có độ phân giải 5MP siêu
-                  nét 2K,  Zoom quang học 30 mét và nhiều tính năng thông minh.Khi
-                  chọn CAMERAIPGIASI bạn yên tâm 100% bởi chúng tôi chỉ Bán <strong>Camera Wifi
-                    chính hãng </strong>, chất lượng, cam kết mang đến trải nghiệm tốt nhất cho khách
-                  hàng.<strong>Camera Wifi </strong> siêu nét, đẳng cấp nhưng giá rất tốt và kèm nhiều
-                  khuyến mãi.Hỗ trợ giao hàng siêu tốc 30 phút đến 4h, Lắp đặt tại nhà,
-                  Bảo hành.Tư vấn miễn phí ngay bây giờ:
-                  <Link href="tel:0923444555"><a style={{ color: "#e14d43" }}><strong> 0923.444.555 – 0932.123.654</strong></a></Link>
-                </div>
-              </div>
+            <Col lg={3}>
+              <CardProduct />
             </Col>
           </Row>
-          <CardWithTitle title="Camera không dây bán chạy">
-            <Row>
-              <Col lg={3}>
-                <CardProduct />
-              </Col>
-            </Row>
-          </CardWithTitle>
-          <CardWithTitle title="Camera theo category">
-            <Row>
-              <Col lg={3}>
-                <CardProduct />
-              </Col>
-            </Row>
-          </CardWithTitle>
-          <CardWithTitle title="Cảm nhận của khách hàng">
-            <Carousel
-              showThumbs={false}
-              centerMode={true}
-              centerSlidePercentage={50}
-              selectedItem={1}
-              showIndicators={false}
-              renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                hasPrev && (
-                  <div onClick={onClickHandler} title={label} className="home__carousel-arrow-left">
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                  </div>
-                )
-              }
-              renderArrowNext={(onClickHandler, hasNext, label) =>
-                hasNext && (
-                  <div onClick={onClickHandler} title={label} className="home__carousel-arrow-right">
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </div>
-                )
-              }
-            >
-              <CardReview />
-              <CardReview />
-              <CardReview />
-            </Carousel>
-          </CardWithTitle>
+        </CardWithTitle>
+        <CardWithTitle title="Cảm nhận của khách hàng">
+          <Carousel
+            showThumbs={false}
+            centerMode={true}
+            centerSlidePercentage={50}
+            selectedItem={1}
+            showIndicators={false}
+            renderArrowPrev={(onClickHandler, hasPrev, label) =>
+              hasPrev && (
+                <div onClick={onClickHandler} title={label} className="home__carousel-arrow-left">
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </div>
+              )
+            }
+            renderArrowNext={(onClickHandler, hasNext, label) =>
+              hasNext && (
+                <div onClick={onClickHandler} title={label} className="home__carousel-arrow-right">
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </div>
+              )
+            }
+          >
+            <CardReview />
+            <CardReview />
+            <CardReview />
+          </Carousel>
+        </CardWithTitle>
       </div>
     </Layout>
 
@@ -135,11 +129,10 @@ export default function Home() {
 
 export async function getServerSideProps() {
   const listCategory = await categoryService.listCategory();
-  console.log(listCategory);
   return {
-      props: {
-         
-      },
+    props: {
+      listCategory: listCategory.data,
+    },
   };
 }
 
