@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Modal from 'react-modal'
 import { faCameraRetro, faPhoneVolume, faEnvelope, faAngleDown, faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 
 const customStyles = {
     content: {
@@ -28,7 +29,7 @@ const customStyles = {
 };
 Modal.setAppElement('#__next');
 
-const Header = ({ listCategory = [] }) => {
+const Header = () => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
     const [isShowCategoryDropdown, setIsShowCategoryDropdown] = useState(false);
     function openCategoryModal() {
@@ -42,6 +43,8 @@ const Header = ({ listCategory = [] }) => {
             location.href = "/search/" + searchInput.current.value;
         }
     }
+    const listCategory = useSelector(state => state.category.current)
+    console.log("RESULT: ", listCategory);
     return (
         <header className="header">
             <div className="header-static flex-spacebetween">
@@ -93,18 +96,13 @@ const Header = ({ listCategory = [] }) => {
                             </a>
                             {/* Dropdown */}
                             <ul className="header-category__children-list header__category-dropdown">
-                                <li className="header-category__children-item">
-                                    <a href="" className="header-category__children-link">Danh muc</a>
-                                </li>
-                                <li className="header-category__children-item">
-                                    <a href="" className="header-category__children-link">Danh muc</a>
-                                </li>
-                                <li className="header-category__children-item">
-                                    <a href="" className="header-category__children-link">Danh muc</a>
-                                </li>
-                                <li className="header-category__children-item">
-                                    <a href="" className="header-category__children-link">Danh muc</a>
-                                </li>
+                                {listCategory.map(category => {
+                                    return (
+                                        <li key={category.id} className="header-category__children-item">
+                                            <a href={category.slug} className="header-category__children-link">{category.name}</a>
+                                        </li>
+                                    )
+                                })}
                             </ul>
 
                         </li>

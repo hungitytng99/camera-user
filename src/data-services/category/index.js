@@ -9,12 +9,7 @@ export const categoryService = {
     listCategory: function (params) {
         return apiListCategory(params).then(response => {
             response.data = response.data.map(category => {
-                return {
-                    id: category.id,
-                    name: category.name,
-                    description: category.description,
-                    slug: category.slug
-                }
+                return filterFieldCategory(category);
             })
             return response;
         });
@@ -22,25 +17,24 @@ export const categoryService = {
 
     detailCategoryById: function (id) {
         return apiDetailCategoryById(id).then(response => {
-            response.data = {
-                id: category.id,
-                name: category.name,
-                description: category.description,
-                slug: category.slug
-            }
+            response.data = filterFieldCategory(response.data);
             return response;
         });
     },
 
     detailCategoryBySlug: function (slug) {
         return apiDetailCategoryBySlug(slug).then(response => {
-            response.data = {
-                id: category.id,
-                name: category.name,
-                description: category.description,
-                slug: category.slug
-            }
+            response.data = filterFieldCategory(response);
             return response;
         });
     },
+}
+
+export const filterFieldCategory = (category) => {
+    return {
+        id: category.id,
+        name: category.name,
+        description: category.description,
+        slug: "/danh-muc/"+category.slug
+    }
 }

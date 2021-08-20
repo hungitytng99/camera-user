@@ -1,13 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Product } from "src/services/product";
-
-export const getListMainCategory = createAsyncThunk(
-    'category/getListMainCategory',
-    async (requestParams, thunkAPI) => {
-        const response = await Product.listProductAsync(requestParams)
-        return response.data
-    }
-)
+import { createSlice } from "@reduxjs/toolkit";
 
 const productSlice = createSlice({
     name: "category",
@@ -16,21 +7,14 @@ const productSlice = createSlice({
         loading: false,
         error: ''
     },
-    reducers: {},
-    extraReducers: {
-        [getListMainCategory.pending]: (state, action) => {
-            state.loading = true;
+    reducers: {
+        addCategory(state, action) {
+            state.current = action.payload;
+            return state;
         },
-        [getListMainCategory.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = action.error;
-        },
-        [getListMainCategory.fulfilled]: (state, action) => {
-            state.loading = false;
-            state.current = action.payload
-        },
-    }
+    },
 })
 
-const { reducer: categoryReducer } = productSlice;
+const { reducer: categoryReducer, actions } = productSlice;
+export const { addCategory } = actions;
 export default categoryReducer;

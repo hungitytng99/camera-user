@@ -12,10 +12,15 @@ import CardReview from 'ui-source/Card/CardReview'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { categoryService } from 'data-services/category'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCategory } from 'data-stores/slices/categorySlice'
 
 export default function Home(props) {
   const { listCategory } = props;
-  console.log(listCategory);
+  // console.log(listCategory);
+  const dispatch = useDispatch();
+  dispatch(addCategory(listCategory));
+  
   return (
     <Layout>
       <div className="home">

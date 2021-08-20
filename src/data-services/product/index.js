@@ -63,7 +63,7 @@ export const filterFieldProduct = (product) => {
         discount: product.discount,
         new_price: product.new_price,
         category_id: product.category_id,
-        slug: product.slug,
+        slug: "/san-pham/" + product.slug,
         image: product.list_product_images,
     }
 }
