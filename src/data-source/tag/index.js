@@ -2,9 +2,9 @@ import { GET, PUT, POST, DELETE } from "src/data-source/fetch.js";
 import { REQUEST_STATE } from "src/app-configs/index.js";
 // Data Flow: Step 1
 
-export const apiListCategory = async (params) => {
+export const apiListTag = async (params) => {
     try {
-        const response = await GET("/category/", params, { isFullPath: false });
+        const response = await GET("/tag/", params, { isFullPath: false });
         return {
             state: REQUEST_STATE.SUCCESS,
             data: response.data
@@ -19,9 +19,9 @@ export const apiListCategory = async (params) => {
     }
 };
 
-export const apiDetailCategoryById = async (categoryId) => {
+export const apiCreateTag = async (id, params) => {
     try {
-        const response = await GET("/category/" + categoryId);
+        const response = await POST("/tag/" + id, params);
         return {
             state: REQUEST_STATE.SUCCESS,
             data: response.data
@@ -36,9 +36,9 @@ export const apiDetailCategoryById = async (categoryId) => {
     }
 };
 
-export const apiDetailCategoryBySlug = async (slug) => {
+export const apiDetailTagById = async (id, params) => {
     try {
-        const response = await GET("/category/get-by-slug/" + slug);
+        const response = await GET("/tag/" + id, params);
         return {
             state: REQUEST_STATE.SUCCESS,
             data: response.data
@@ -53,37 +53,10 @@ export const apiDetailCategoryBySlug = async (slug) => {
     }
 };
 
-//   PARAMS
-//   {    
-//     "name": "string",
-//     "main_category_id": 0
-//   }
 
-export const apiCreateCategory = async (categoryId, params) => {
+export const apiUpdateTag = async (id, params) => {
     try {
-        const response = await POST("/category/" + categoryId, params);
-        return {
-            state: REQUEST_STATE.SUCCESS,
-            data: response.data
-        };
-
-    } catch (error) {
-        console.log("error", error);
-        return {
-            state: REQUEST_STATE.ERROR,
-            data: []
-        };
-    }
-};
-//   PARAMS
-//   {
-//     "name": "string",
-//     "main_category_id": 0
-//   }
-
-export const apiUpdateCategory = async (categoryId , params) => {
-    try {
-        const response = await PUT("/category/" + categoryId, params);
+        const response = await PUT("/tag/" + id, params);
         return {
             state: REQUEST_STATE.SUCCESS,
             data: response.data
@@ -98,9 +71,9 @@ export const apiUpdateCategory = async (categoryId , params) => {
     }
 };
 
-export const apiDeleteCategory = async (categoryId) => {
+export const apiDeleteTag = async (id) => {
     try {
-        const response = await DELETE("/category/" + categoryId);
+        const response = await DELETE("/tag/" + id);
         return {
             state: REQUEST_STATE.SUCCESS,
             data: response.data
