@@ -11,6 +11,7 @@ import CardWithTitle from 'ui-source/Card/CardWithTitle'
 import CardReview from 'ui-source/Card/CardReview'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { categoryService } from 'data-services/category'
 
 export default function Home() {
   const arrowStyles = {
@@ -131,3 +132,14 @@ export default function Home() {
 
   )
 }
+
+export async function getServerSideProps() {
+  const listCategory = await categoryService.listCategory();
+  console.log(listCategory);
+  return {
+      props: {
+         
+      },
+  };
+}
+

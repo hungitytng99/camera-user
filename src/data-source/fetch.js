@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACTION_TYPE, Configs } from "src/app-configs/index.js";
+import { ACTION_TYPE, Configs } from "app-configs/index.js";
 
 let token = "";
 

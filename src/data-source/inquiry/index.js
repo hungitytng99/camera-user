@@ -1,5 +1,5 @@
-import { GET, PUT, POST, DELETE } from "src/data-source/fetch.js";
-import { REQUEST_STATE } from "src/app-configs/index.js";
+import { GET, PUT, POST, DELETE } from "data-source/fetch.js";
+import { REQUEST_STATE } from "app-configs/index.js";
 // Data Flow: Step 1
 
 //  SEND CUSTOMER INQUIRY
