@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import Link from 'next/link'
 import Head from 'next/head'
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Layout from 'components/Layout/Layout';
 import { faGift, faCheckCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
 import CardWithTitle from 'ui-source/Card/CardWithTitle';
@@ -76,7 +76,7 @@ const Product = (props) => {
                 <title>{detailProduct.title}</title>
             </Head>
             <Layout>
-                <Container className="product">
+                <div className="product">
                     <Row>
                         <Col>
                             <Breadcrumb className="product__breadcrumb">
@@ -246,7 +246,7 @@ const Product = (props) => {
                     <Row className="product__related-product">
                         <CardWithTitle title="Sản phẩm cùng phân khúc">
                             <Row>
-                                <Col xs={12} sm={6}  md={4} lg={3}>
+                                <Col xs={12} sm={6} md={4} lg={3}>
                                     <CardProduct />
                                 </Col>
                             </Row>
@@ -273,26 +273,12 @@ const Product = (props) => {
                                                     </div>
                                                 </Col>
                                                 <Col lg={9}>
-                                                    <div className="product__news-item-title text_over_flow_3">
+                                                    <div className="product__news-item-title text_over_flow_2">
                                                         Lắp Đặt Camera Quan Sát Giá Rẻ chỉ từ 300K Cho Gia Đình, Văn Phòng, Cửa Hàng
                                                     </div>
-                                                </Col>
-                                            </Row>
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li className="product__news-item">
-                                    <Link href="/">
-                                        <a>
-                                            <Row className="product__news-row">
-                                                <Col lg={3}>
-                                                    <div className="product__news-item-img">
-                                                        <Image src={ImagesPath.NEWS_THUMB} layout="fill" objectFit="contain" />
-                                                    </div>
-                                                </Col>
-                                                <Col lg={9}>
-                                                    <div className="product__news-item-title text_over_flow_3">
-                                                        Lắp Đặt Camera Quan Sát Giá Rẻ chỉ từ 300K Cho Gia Đình, Văn Phòng, Cửa Hàng
+                                                    <div className="product__news-date">
+                                                        <FontAwesomeIcon className="product__news-date-icon" icon={faCalendarAlt} />
+                                                        <div className="product__news-date-product">29/07/2021</div>
                                                     </div>
                                                 </Col>
                                             </Row>
@@ -310,7 +296,7 @@ const Product = (props) => {
                             productId={detailProduct.id}
                             productName={detailProduct.title} />
                     </Row>
-                </Container>
+                </div>
             </Layout>
 
             <Modal

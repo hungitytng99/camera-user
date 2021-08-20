@@ -87,8 +87,8 @@ const Header = ({ listCategory = [] }) => {
                             <a href="/" className="header-dynamic__category-link --active ">Trang chủ</a>
                         </li>
                         <li className="header-dynamic__category-item has-dropdown">
-                            <a href="/san-pham" className="header-dynamic__category-link ">
-                                Sản phẩm
+                            <a href="/danh-muc" className="header-dynamic__category-link ">
+                                Danh mục
                                 <FontAwesomeIcon className="header-dynamic__down-icon" icon={faAngleDown} />
                             </a>
                             {/* Dropdown */}

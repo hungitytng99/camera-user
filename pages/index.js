@@ -24,7 +24,6 @@ export default function Home() {
   return (
     <Layout>
       <div className="home">
-        <Container>
           <Row className="home__carousel">
             <Col xs={12}>
               <Carousel
@@ -127,7 +126,6 @@ export default function Home() {
               <CardReview />
             </Carousel>
           </CardWithTitle>
-        </Container>
       </div>
     </Layout>
 

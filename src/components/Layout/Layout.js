@@ -9,12 +9,14 @@ function Layout(props) {
     const { children } = props;
     return (
         <div className="layout">
-            <ContactPop/>
+            <ContactPop />
             <div className="layout__header">
                 <Header />
             </div>
-            <div className="layout__content" style={{marginTop: "115px"}}>
-                {children}
+            <div className="layout__content" style={{ marginTop: "115px" }}>
+                <Container>
+                    {children}
+                </Container>
             </div>
             <div className="layout__footer">
                 <Footer />

@@ -41,9 +41,6 @@ function CardProduct(props) {
         setContactModal(false);
     }
 
-    const redirectToDetailProduct = (e) => {
-        location.replace("/" + e.currentTarget.dataset.href);
-    }
     return (
         <div className="card-product">
             <div className="card-product__item-order ">
@@ -82,8 +79,8 @@ function CardProduct(props) {
             >
                 <div className="contact-form__header">
                     <div className="contact-form__header-text">
-                        Leave your contact information
-                        <span>We'll contact you as soon as possible</span>
+                        Cho chúng tôi thông tin của bạn
+                        <span>Chúng tôi sẽ liên hệ với bạn sớm nhất có thể</span>
                     </div>
                     <div onClick={hideContactModal} className="contact-form__header-close">
                         <FontAwesomeIcon icon={faTimes} />
