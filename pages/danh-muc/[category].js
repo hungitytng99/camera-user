@@ -156,8 +156,8 @@ const Category = (props) => {
             >
                 <div className="contact-form__header">
                     <div className="contact-form__header-text">
-                        Leave your contact information
-                        <span>We'll contact you as soon as possible</span>
+                    Để lại thông tin của bạn
+                        <span>Chúng tôi sẽ liên lạc với bạn sớm nhất có thể</span>
                     </div>
                     <div onClick={hideContactModal} className="contact-form__header-close">
                         <FontAwesomeIcon icon={faTimes} />

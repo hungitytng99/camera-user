@@ -14,49 +14,15 @@ import CardWithTitle from 'ui-source/Card/CardWithTitle';
 import CardProduct from 'ui-source/Card/CardProduct';
 import { ImagesPath } from 'constants/ImagesPath';
 import Image from 'next/image'
+import { productService } from 'data-services/product';
+import { categoryService } from 'data-services/category';
 
 
 Modal.setAppElement('#__next');
 // detailProduct = {},
 const Product = (props) => {
-    const { mainCategoryAndSubCategory = {}, relatedProducts = {} } = props;
+    const { relatedProducts = {}, detailProduct = {} } = props;
     const [contactModal, setContactModal] = useState(false);
-
-    const detailProduct = {
-        "id": 104,
-        "title": "TRỌN BỘ 7 CAMERA KBVISION 2MP FULL HD 1080P CHÍNH HÃNG IP67, IR 20M",
-        "model": "SGWD061",
-        "description": "Product name: African Seagrass Hanging Decor Basket",
-        "image": [
-            {
-                "src": "https://sc04.alicdn.com/kf/Hcb0089c454a7484b93488c5677791273O.jpg",
-                "alt": "Hanging Woven Seagrass Flat Baskets Round Boho Wall Basket Decor for Living Room or Bedroom_708"
-            },
-            {
-                "src": "https://sc04.alicdn.com/kf/S863e8415e3e74ce49b073d97f68d809cc.jpg",
-                "alt": "Hanging Woven Seagrass Flat Baskets Round Boho Wall Basket Decor for Living Room or Bedroom_510"
-            },
-            {
-                "src": "https://sc04.alicdn.com/kf/Sc2c9a318fe584889b0ffe58066e72e563.jpg",
-                "alt": "Hanging Woven Seagrass Flat Baskets Round Boho Wall Basket Decor for Living Room or Bedroom_449"
-            },
-            {
-                "src": "https://sc04.alicdn.com/kf/Sb81d0e39f4a441cdbccb56ecda08cc202.jpg",
-                "alt": "Hanging Woven Seagrass Flat Baskets Round Boho Wall Basket Decor for Living Room or Bedroom_674"
-            },
-            {
-                "src": "https://sc04.alicdn.com/kf/S0657831e2aac41669bba5778f23e477dQ.jpg",
-                "alt": "Hanging Woven Seagrass Flat Baskets Round Boho Wall Basket Decor for Living Room or Bedroom_617"
-            }
-        ],
-        "new_price": "5,050,000đ",
-        "old_price": "5,050,000đ",
-        "material": "Seagrass",
-        "category": "Furniture & Decor",
-        "slug": "Hanging_Woven_Seagrass_Flat_Baskets_Round_Boho_Wall_Basket_Decor_for_Living_Room_or_Bedroom_1629195681630",
-        "main_category_id": 50
-    }
-
     const showContactModal = (e) => {
         e.stopPropagation();
         setContactModal(true);
@@ -66,6 +32,8 @@ const Product = (props) => {
         setContactModal(false);
     }
 
+    console.log("DETAIL:  ",detailProduct.image);
+
     const closeContactForm = (e) => {
         e.preventDefault();
         setContactModal(false);
@@ -73,16 +41,17 @@ const Product = (props) => {
     return (
         <>
             <Head>
-                <title>{detailProduct.title}</title>
+                <title>{detailProduct.name}</title>
             </Head>
             <Layout>
                 <div className="product">
                     <Row>
                         <Col>
                             <Breadcrumb className="product__breadcrumb">
-                                <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                                <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
+                                <Breadcrumb.Item href={detailProduct.category_slug}>{detailProduct.category_name}</Breadcrumb.Item>
                                 <Breadcrumb.Item active>
-                                    {detailProduct.category}
+                                    {detailProduct.name}
                                 </Breadcrumb.Item>
                             </Breadcrumb>
                         </Col>
@@ -91,7 +60,7 @@ const Product = (props) => {
                         <Col>
 
                             <div className="product__detail-name">
-                                {detailProduct.title}
+                                {detailProduct.name}
                             </div>
                         </Col>
                     </Row>
@@ -101,7 +70,7 @@ const Product = (props) => {
                         </Col>
                         <Col xs={12} md={5}>
                             <div className="product__detail-old-price">
-                                {detailProduct.old_price}
+                                {detailProduct.price}
                             </div>
                             <div className="product__detail-new-price">
                                 {detailProduct.new_price}
@@ -122,13 +91,43 @@ const Product = (props) => {
                                         <div className="product__detail-sale-icon">
                                             <FontAwesomeIcon icon={faCheckCircle} />
                                         </div>
-                                        Hàng chính hãng Full Box mới 100% - Giảm SỐC
+                                        GIẢM LIỀN 100K khi mua 2 camera WIFI bất kỳ
                                     </li>
                                     <li className="product__detail-sale-item">
                                         <div className="product__detail-sale-icon">
                                             <FontAwesomeIcon icon={faCheckCircle} />
                                         </div>
-                                        Hàng chính hãng Full Box mới 100% - Giảm SỐC
+                                        TIẾT KIỆM thêm 50K khi mua kèm THẺ NHỚ
+                                    </li>
+                                    <li className="product__detail-sale-item">
+                                        <div className="product__detail-sale-icon">
+                                            <FontAwesomeIcon icon={faCheckCircle} />
+                                        </div>
+                                        NHẬN NGAY Voucher giảm giá 50k - 300K
+                                    </li>
+                                    <li className="product__detail-sale-item">
+                                        <div className="product__detail-sale-icon">
+                                            <FontAwesomeIcon icon={faCheckCircle} />
+                                        </div>
+                                        MIỄN PHÍ cài đặt và hướng dẫn sử dụng tận nơi tại TPHCM
+                                    </li>
+                                    <li className="product__detail-sale-item">
+                                        <div className="product__detail-sale-icon">
+                                            <FontAwesomeIcon icon={faCheckCircle} />
+                                        </div>
+                                        MIỄN PHÍ giao hàng toàn quốc - HOẢ TỐC tại TPHCM
+                                    </li>
+                                    <li className="product__detail-sale-item">
+                                        <div className="product__detail-sale-icon">
+                                            <FontAwesomeIcon icon={faCheckCircle} />
+                                        </div>
+                                        Hỗ trợ lắp đặt camera tận nhà tại TPHCM
+                                    </li>
+                                    <li className="product__detail-sale-item">
+                                        <div className="product__detail-sale-icon">
+                                            <FontAwesomeIcon icon={faCheckCircle} />
+                                        </div>
+                                        Bảo hành 12 tháng - Đổi 1/1 trong vòng 30 ngày nếu lỗi NSX
                                     </li>
                                 </ul>
                             </div>
@@ -137,7 +136,7 @@ const Product = (props) => {
                                     Thông tin nổi bật
                                 </div>
                                 <div className="product__detail-special-content">
-                                    Đây là thông tin nổi bật của sản phẩm
+                                    {detailProduct.description}
                                 </div>
                             </div>
                             <div className="product__detail-contact">
@@ -244,11 +243,18 @@ const Product = (props) => {
                         </Col>
                     </Row>
                     <Row className="product__related-product">
-                        <CardWithTitle title="Sản phẩm cùng phân khúc">
+                        <CardWithTitle title="Sản phẩm cùng danh mục">
                             <Row>
-                                <Col xs={12} sm={6} md={4} lg={3}>
-                                    <CardProduct />
-                                </Col>
+                                {
+                                    relatedProducts.map((product) => {
+                                        return (
+                                            <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
+                                                <CardProduct product={product} />
+                                            </Col>
+                                        )
+                                    })
+                                }
+
                             </Row>
                         </CardWithTitle>
                     </Row>
@@ -264,7 +270,7 @@ const Product = (props) => {
                             </div>
                             <ul className="product__news-list">
                                 <li className="product__news-item">
-                                    <Link href="/">
+                                    <Link href="/" passHref>
                                         <a>
                                             <Row className="product__news-row">
                                                 <Col lg={3}>
@@ -307,8 +313,8 @@ const Product = (props) => {
             >
                 <div className="contact-form__header">
                     <div className="contact-form__header-text">
-                        Leave your contact information
-                        <span>We'll contact you as soon as possible</span>
+                        Để lại thông tin của bạn
+                        <span>Chúng tôi sẽ liên lạc với bạn sớm nhất có thể</span>
                     </div>
                     <div onClick={hideContactModal} className="contact-form__header-close">
                         <FontAwesomeIcon icon={faTimes} />
@@ -323,17 +329,31 @@ const Product = (props) => {
 }
 
 export async function getServerSideProps(context) {
-    // const { slug } = context.params;
-    // const mainCategoryWithSub = await mainCategoryService.listCategoryWithSubCategory();
-    // const detailProduct = await productService.detailProductBySlugAsync(slug);
-
-    // const relatedProducts = await productService.listProductBySubCategoryName(
-    //     { category: detailProduct.data.category, category: detailProduct.data.sub_category, productsPerPage: 4, pageNumber: 1 }
-    // );
+    const { slug } = context.params;
+    let detailProduct = await productService.detailProductBySlug(slug);
+    const detailCategory = await categoryService.detailCategoryById(detailProduct.data.category_id);
+    detailProduct.data = {
+        ...detailProduct.data, category_name: detailCategory.data.name,
+        category_slug: detailCategory.data.slug
+    }
+    const relatedProducts = await productService.listProductByCategoryId(detailProduct.data.category_id);
+    relatedProducts.data = relatedProducts.data.filter((product) => {
+        if (product.id !== detailProduct.data.id) {
+            return product;
+        }
+    })
+    // Slit list product into 4 or 8 product
+    if (relatedProducts.data.length > 4 && relatedProducts.data.length < 8) {
+        relatedProducts.data = relatedProducts.data.splice(0, 4);
+    } else if (relatedProducts.data.length > 8) {
+        relatedProducts.data = relatedProducts.data.splice(0, 8);
+    }
+    console.log("RELOAD");
     return {
         props: {
             // mainCategoryAndSubCategory: mainCategoryWithSub.data,
-            // detailProduct: detailProduct.data,
+            detailProduct: detailProduct.data,
+            relatedProducts: relatedProducts.data,
             // relatedProducts: relatedProducts.data,
         },
     };

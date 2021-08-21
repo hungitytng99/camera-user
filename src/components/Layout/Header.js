@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImagesPath } from 'constants/ImagesPath';
 import { Container, Row, Col, Collapse } from 'react-bootstrap';
 import Link from 'next/link'
@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Modal from 'react-modal'
 import { faCameraRetro, faPhoneVolume, faEnvelope, faAngleDown, faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
+import { categoryService } from 'data-services/category';
 
 const customStyles = {
     content: {
@@ -31,7 +31,7 @@ Modal.setAppElement('#__next');
 
 const Header = () => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
-    const [isShowCategoryDropdown, setIsShowCategoryDropdown] = useState(false);
+    const [listCategory, setListCategory] = useState([]);
     function openCategoryModal() {
         setCategoryIsOpen(true);
     }
@@ -43,7 +43,16 @@ const Header = () => {
             location.href = "/search/" + searchInput.current.value;
         }
     }
-    const listCategory = useSelector(state => state.category.current)
+    // const listCategory = useSelector(state => state.category.current)
+
+    useEffect(() => {
+        const getListCategory = async () => {
+            const listCategoryTmp = await categoryService.listCategory();
+            setListCategory(listCategoryTmp.data);
+        }
+        getListCategory();
+    }, [])
+
     return (
         <header className="header">
             <div className="header-static flex-spacebetween">
@@ -80,13 +89,17 @@ const Header = () => {
                 <div className="header-bars show-on-992" onClick={openCategoryModal}>
                     <FontAwesomeIcon className="header-bars__icon" icon={faBars} />
                 </div>
-                <a href="/" className="header-dynamic__logo ">
-                    <Image src={ImagesPath.LOGO} className="header-dynamic__logo-img" alt="camera bac ninh logo" />
-                </a>
+                <Link href="/">
+                    <a className="header-dynamic__logo ">
+                        <Image src={ImagesPath.LOGO} className="header-dynamic__logo-img" alt="camera bac ninh logo" />
+                    </a>
+                </Link>
                 <div className="header-dynamic__category hide-on-992">
                     <ul className="header-dynamic__category-list flex-center ">
                         <li className="header-dynamic__category-item ">
-                            <a href="/" className="header-dynamic__category-link --active ">Trang chủ</a>
+                            <Link href="/">
+                                <a className="header-dynamic__category-link --active ">Trang chủ</a>
+                            </Link>
                         </li>
                         <li className="header-dynamic__category-item has-dropdown">
                             <a href="/danh-muc" className="header-dynamic__category-link ">
@@ -106,13 +119,19 @@ const Header = () => {
 
                         </li>
                         <li className="header-dynamic__category-item ">
-                            <a href="/tin-tuc" className="header-dynamic__category-link ">Tin tức</a>
+                            <Link href="/tin-tuc">
+                                <a className="header-dynamic__category-link ">Tin tức</a>
+                            </Link>
                         </li>
                         <li className="header-dynamic__category-item ">
-                            <a href="/ki-thuat" className="header-dynamic__category-link ">Kĩ thuật</a>
+                            <Link href="/ki-thuat">
+                                <a className="header-dynamic__category-link ">Kĩ thuật</a>
+                            </Link>
                         </li>
                         <li className="header-dynamic__category-item ">
-                            <a href="/lien-he" className="header-dynamic__category-link ">Liên hệ</a>
+                            <Link href="/lien-he">
+                                <a className="header-dynamic__category-link ">Liên hệ</a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

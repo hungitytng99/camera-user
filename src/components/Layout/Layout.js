@@ -1,6 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap'
-import Link from 'next/link'
-import Image from 'next/image'
+import { Container } from 'react-bootstrap'
 import Footer from 'components/Layout/Footer';
 import Header from 'components/Layout/Header';
 import ContactPop from 'components/ContactPop';

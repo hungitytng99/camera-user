@@ -44,7 +44,7 @@ function CardProduct(props) {
         <div className="card-product">
             <div className="card-product__item-order ">
                 <div className="card-product__item-order-product ">
-                    <Link href="/">
+                    <Link href={product.slug} passHref>
                         <a className="card-product__img">
                             {product.image[0] && <Image src={product.image[0]} layout="fill" objectFit="contain" alt="product" />}
                         </a>
@@ -63,7 +63,9 @@ function CardProduct(props) {
 
             </div>
             <div className="card-product__item-price ">
-                <a href=" " className="card-product__item-price-title text_over_flow_1 ">{product.name}</a>
+                <Link href={product.slug} passHref>
+                    <a className="card-product__item-price-title text_over_flow_1 ">{product.name}</a>
+                </Link>
                 <div className="card-product__item-price-favor">
                     <FontAwesomeIcon className="card-product__item-price-favor -item --active" icon={faStar} />
                     <FontAwesomeIcon className="card-product__item-price-favor -item --active" icon={faStar} />

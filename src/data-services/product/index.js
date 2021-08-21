@@ -12,18 +12,14 @@ import { apiListProduct } from "data-source/product";
 export const productService = {
     detailProductById: function (id, params) {
         return apiDetailProductById(id, params).then(response => {
-            response.data = response.data.map(product => {
-                return filterFieldProduct(product);
-            })
+            response.data = filterFieldProduct(response.data);
             return response;
         });
     },
 
     detailProductBySlug: function (slug, params) {
         return apiDetailProductBySlug(slug, params).then(response => {
-            response.data = response.data.map(product => {
-                return filterFieldProduct(product);
-            })
+            response.data = filterFieldProduct(response.data);
             return response;
         });
     },
@@ -75,8 +71,22 @@ export const filterFieldProduct = (product) => {
         new_price: numberWithCommas(product.new_price),
         category_id: product.category_id,
         slug: "/san-pham/" + product.slug,
-        image: product.list_product_images,
+        image: filterFieldImage(product.list_product_images, product.name),
     }
+}
+
+export const filterFieldImage = (listImage, alt) => {
+    // [ imgSrc1 , imgSrc2, ... ]
+    // => 
+    // [ { src: imgSrc1, alt: imgAlt1} , { src: imgSrc2, alt: imgAlt2}, ... ]
+    return listImage.map((image, index) => {
+        return {
+            id: index,
+            isSelected: index == 0,
+            src: image,
+            alt: alt + "_" + String(Math.floor(Math.random() * 1000)),
+        }
+    })
 }
 
 export function numberWithCommas(x) {

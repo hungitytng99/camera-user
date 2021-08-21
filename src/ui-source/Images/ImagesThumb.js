@@ -4,26 +4,21 @@ import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 // [{ src: ImagesPath.PRODUCT.src, alt: "" }, { src: ImagesPath.PRODUCT_2.src, alt: "" }, { src: ImagesPath.SP.src, alt: "" }]
 const ImagesThumb = ({ listImages = [] }) => {
-    let count = -1;
-    listImages = listImages.map((item, index) => {
-        count++;
-        return {
-            id: count,
-            isSelected: index == 0,
-            ...item,
-        }
-    })
-    const [listImagesStatus, setlistImagesStatus] = useState(listImages)
     const [currentImageSelected, setCurrentImageSelected] = useState(listImages[0]);
     const selectImage = (e) => {
         let indexImgSelected = Number(e.target.dataset.imgid);
-        let newListImage = listImages.map((img, index) => {
+        listImages = listImages.map((img, index) => {
             img.isSelected = index == indexImgSelected
             return img;
         });
-        setCurrentImageSelected(newListImage[indexImgSelected]);
-        setlistImagesStatus(newListImage);
+        setCurrentImageSelected(listImages[indexImgSelected]);
+        // setCurrentImageSelected(newListImage[indexImgSelected]);
     }
+
+    useEffect(() => {
+        setCurrentImageSelected(listImages[0]);
+    },[listImages])
+
     return (
         <div className="images-thumb">
             <Row className="images-thumb__row">
@@ -44,7 +39,7 @@ const ImagesThumb = ({ listImages = [] }) => {
             </Row>
             <Row className="images-thumb__center">
                 <div className="images-thumb__list">
-                    {listImagesStatus.map((image, index) => {
+                    {listImages.map((image) => {
                         return (
                             <div key={image.id} className={`images-thumb__item ${image.isSelected && 'selected'}`}>
                                 <img onClick={selectImage} data-imgid={image.id} className="images-thumb__item-img" src={image.src} alt={image.alt} />
