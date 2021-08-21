@@ -5,6 +5,8 @@ import { Form, Formik } from 'formik';
 import InputField from 'ui-source/Form/InputField';
 // import FullPageLoading from 'ui-source/Loading/FullPageLoading';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { Configs } from 'app-configs';
+import { inquiryService } from 'data-services/inquiry';
 
 
 const phoneReg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g
@@ -21,32 +23,25 @@ const ContactForm = (props) => {
     const { productSlug, productId, productName, closeContact = () => { } } =  props;
     const [isShowLoading, setIsShowLoading] = useState(false);
     const [messageAfterValidate, setMessageAfterValidate] = useState('');
+    console.log(productName);
     const sendContact = async (values) => {
         console.log(values);
-        // try {
-        //     setIsShowLoading(true);
-        //     const inquiryBody = {
-        //         customer_name: values.name,
-        //         email: values.email,
-        //         phone: values.phone,
-        //         message: values.message,
-        //         product_id: productId,
-        //         quantity: 0,
-        //         product_link: 'https://giangminhviet.com/product/' + productSlug,
-        //         product_name: productName
-        //     }
-        //     const response = await inquiryService.sendCustomerInquiry(inquiryBody);
-        //     setMessageAfterValidate(response.message);
-        //     if(response.message == "Thank for your information. We will contact you as soon as possible!" ) {
-        //         // setTimeout(() => {
-        //         //     closeContact();
-        //         // }, 1000)
-        //     }
-        //     setIsShowLoading(false);
-        // } catch (error) {
-        //     setIsShowLoading(false);
-        //     setMessageAfterValidate('An error occurs when you send your information. Please try again later!');
-        // }
+        try {
+            const inquiryBody = {
+                customer_name: values.name,
+                email: values.email,
+                phone: values.phone,
+                message: values.message,
+                product_id: productId,
+                product_link: Configs.DOMAIN + productSlug,
+                product_name: productName
+            }
+            console.log(inquiryBody);
+            const response = await inquiryService.sendCustomerInquiry(inquiryBody);
+            setMessageAfterValidate(response.message);
+        } catch (error) {
+            setMessageAfterValidate('An error occurs when you send your information. Please try again later!');
+        }
     }
 
     useEffect(() => {

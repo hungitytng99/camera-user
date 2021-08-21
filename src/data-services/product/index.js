@@ -3,6 +3,7 @@
 
 import { apiListProductByCategorySlug } from "data-source/product";
 import { apiDetailProductBySlug } from "data-source/product";
+import { apiListHotProduct } from "data-source/product";
 import { apiDetailProductById } from "data-source/product";
 import { apiListProductByCategoryId } from "data-source/product";
 import { apiListProduct } from "data-source/product";
@@ -44,8 +45,18 @@ export const productService = {
             return response;
         });
     },
+
     listProductByCategorySlug: function (slug, params) {
         return apiListProductByCategorySlug(slug, params).then(response => {
+            response.data = response.data.map(product => {
+                return filterFieldProduct(product);
+            })
+            return response;
+        });
+    },
+
+    listHotProduct: function (params) {
+        return apiListHotProduct(params).then(response => {
             response.data = response.data.map(product => {
                 return filterFieldProduct(product);
             })
@@ -59,11 +70,15 @@ export const filterFieldProduct = (product) => {
         id: product.id,
         name: product.name,
         description: product.description,
-        price: product.price,
+        price: numberWithCommas(product.price),
         discount: product.discount,
-        new_price: product.new_price,
+        new_price: numberWithCommas(product.new_price),
         category_id: product.category_id,
         slug: "/san-pham/" + product.slug,
         image: product.list_product_images,
     }
+}
+
+export function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

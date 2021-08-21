@@ -1,6 +1,7 @@
 // config for dev;
 export const Configs = {
     BASE_API: "http://103.163.118.206:1236/api/",
+    DOMAIN: "https://giangminhviet.com/product",
 
     CURRENT_PAGE: 1,
     FILE_MAXIMUM: 2, //MB

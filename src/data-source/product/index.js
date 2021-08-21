@@ -152,3 +152,55 @@ export const apiDeleteProduct = async (id) => {
     }
 };
 
+export const apiListHotProduct = async (params) => {
+    try {
+        const response = await GET("/hot-product/", params, { isFullPath: false });
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
+export const apiSetHotProduct = async (id, params) => {
+    try {
+        const response = await GET("/hot-product/set/" + id, params, { isFullPath: false });
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
+export const apiUnSetHotProduct = async (params) => {
+    try {
+        const response = await GET("/hot-product/unset/", params, { isFullPath: false });
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
+

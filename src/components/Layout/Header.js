@@ -44,7 +44,6 @@ const Header = () => {
         }
     }
     const listCategory = useSelector(state => state.category.current)
-    console.log("RESULT: ", listCategory);
     return (
         <header className="header">
             <div className="header-static flex-spacebetween">

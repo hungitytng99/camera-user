@@ -1,5 +1,6 @@
 // Data Flow: Step 2
 
+import { productService } from "data-services/product";
 import { apiDetailCategoryBySlug } from "data-source/category";
 import { apiListCategory } from "data-source/category";
 import { apiDetailCategoryById } from "data-source/category";
@@ -28,6 +29,20 @@ export const categoryService = {
             return response;
         });
     },
+
+    listCategoryWithProduct: async function (paramsCategory, paramsProduct) {
+        let listCategoryWithProduct = await this.listCategory(paramsCategory);
+        let count = 0;
+        for (let i = 0; i < listCategoryWithProduct.data.length; i++) {
+            if (count == 4) break; // limit 4 category at home page
+            const listProduct = await productService.listProductByCategoryId(listCategoryWithProduct.data[i].id, paramsProduct);
+            if (listProduct.data.length > 0) {
+                count++;
+                listCategoryWithProduct.data[i] = { ...listCategoryWithProduct.data[i], listProduct: listProduct.data };
+            }
+        }
+        return listCategoryWithProduct;
+    }
 }
 
 export const filterFieldCategory = (category) => {
@@ -35,6 +50,6 @@ export const filterFieldCategory = (category) => {
         id: category.id,
         name: category.name,
         description: category.description,
-        slug: "/danh-muc/"+category.slug
+        slug: "/danh-muc/" + category.slug
     }
 }

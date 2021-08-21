@@ -11,25 +11,24 @@ import ContactForm from 'components/ContactForm';
 Modal.setAppElement('#__next');
 const defaultProduct = {
     id: 0,
-    title: "",
+    name: "",
     description: "",
-    main_image: "",
-    all_image: "",
-    price: "",
+    image: [""],
+    price: 0,
+    new_price: 0,
+    discount: 0,
     material: "",
-    sub_category: "",
-    main_category: "",
+    category_id: 0,
     slug: "/"
 }
 function CardProduct(props) {
-    const { detailText = "Detail", product = defaultProduct,
-        contactText = "Contact", discount = 0 } = props;
+    const { product = defaultProduct,
+        contactText = "Liên hệ" } = props;
     const [contactModal, setContactModal] = useState(false);
     const [productName, setProductName] = useState("");
-
     const showContactModal = (e) => {
         e.stopPropagation();
-        setProductName(e.currentTarget.dataset.productname);
+        console.log(e.target.dataset.id);
         setContactModal(true);
     }
 
@@ -47,17 +46,24 @@ function CardProduct(props) {
                 <div className="card-product__item-order-product ">
                     <Link href="/">
                         <a className="card-product__img">
-                            <Image src={ImagesPath.PRODUCT_6} layout="fill" objectFit="contain" alt="product" />
+                            {product.image[0] && <Image src={product.image[0]} layout="fill" objectFit="contain" alt="product" />}
                         </a>
                     </Link>
                     <button onClick={showContactModal} className="card-product__item-order-btn">
-                        Liên hệ
+                        {contactText}
                     </button>
+                    {
+                        product.discount != 0 &&
+                        <div className="card-product__item-discount">
+                            GIẢM {product.discount}%
+                        </div>
+                    }
+
                 </div>
 
             </div>
             <div className="card-product__item-price ">
-                <a href=" " className="card-product__item-price-title text_over_flow_1 ">Sản phẩm camera bán chạy nhất tháng 8</a>
+                <a href=" " className="card-product__item-price-title text_over_flow_1 ">{product.name}</a>
                 <div className="card-product__item-price-favor">
                     <FontAwesomeIcon className="card-product__item-price-favor -item --active" icon={faStar} />
                     <FontAwesomeIcon className="card-product__item-price-favor -item --active" icon={faStar} />
@@ -66,8 +72,8 @@ function CardProduct(props) {
                     <FontAwesomeIcon className="card-product__item-price-favor -item --active" icon={faStar} />
                 </div>
                 <div className="card-product__item-price -wrap ">
-                    <div className="card-product__item-price-old ">1.000.000<span>đ</span></div>
-                    <div className="card-product__item-price-new ">800.000<span>đ</span></div>
+                    <div className="card-product__item-price-old ">{product.price}<span>đ</span></div>
+                    <div className="card-product__item-price-new ">{product.new_price}<span>đ</span></div>
                 </div>
 
             </div>
@@ -79,7 +85,7 @@ function CardProduct(props) {
             >
                 <div className="contact-form__header">
                     <div className="contact-form__header-text">
-                        Cho chúng tôi thông tin của bạn
+                        Để lại thông tin của bạn
                         <span>Chúng tôi sẽ liên hệ với bạn sớm nhất có thể</span>
                     </div>
                     <div onClick={hideContactModal} className="contact-form__header-close">
@@ -87,7 +93,8 @@ function CardProduct(props) {
                     </div>
                 </div>
                 <div className="contact-form__form">
-                    <ContactForm closeContact={closeContactForm} productName={productName} productId={product.id} />
+                    <ContactForm closeContact={closeContactForm} productName={product.name}
+                        productId={product.id} productSlug={product.slug} />
                 </div>
             </Modal>
         </div>

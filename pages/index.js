@@ -14,13 +14,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { categoryService } from 'data-services/category'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCategory } from 'data-stores/slices/categorySlice'
+import { productService } from 'data-services/product'
 
 export default function Home(props) {
-  const { listCategory } = props;
-  // console.log(listCategory);
+  const { listCategory, listHotProduct, listCategoryWithProduct } = props;
   const dispatch = useDispatch();
   dispatch(addCategory(listCategory));
-  
+  // console.log(listCategory);
+  console.log("LIST:  ", listCategoryWithProduct);
+
   return (
     <Layout>
       <div className="home">
@@ -54,9 +56,15 @@ export default function Home(props) {
           </div>
         </Row>
         <Row>
-          <Col xs={12} sm={6} md={4} lg={3}>
-            <CardProduct />
-          </Col>
+          {
+            listHotProduct.map(hotProduct => {
+              return (
+                <Col key={hotProduct.id} xs={12} sm={6} md={4} lg={3}>
+                  <CardProduct product={hotProduct} />
+                </Col>
+              )
+            })
+          }
         </Row>
         <Row>
           <Col>
@@ -85,20 +93,27 @@ export default function Home(props) {
             </div>
           </Col>
         </Row>
-        <CardWithTitle title="Camera không dây bán chạy">
-          <Row>
-            <Col lg={3}>
-              <CardProduct />
-            </Col>
-          </Row>
-        </CardWithTitle>
-        <CardWithTitle title="Camera theo category">
-          <Row>
-            <Col lg={3}>
-              <CardProduct />
-            </Col>
-          </Row>
-        </CardWithTitle>
+
+        {listCategoryWithProduct.map(categoryWithProduct => {
+          return (
+            categoryWithProduct.listProduct && <CardWithTitle key={categoryWithProduct.id} title={categoryWithProduct.name}>
+              <Row>
+                {
+                  categoryWithProduct.listProduct.map(product => {
+                    return (
+                      <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
+                        <CardProduct product={product}/>
+                      </Col>
+                    )
+                  })
+                }
+
+              </Row>
+            </CardWithTitle>
+          )
+        })}
+
+
         <CardWithTitle title="Cảm nhận của khách hàng">
           <Carousel
             showThumbs={false}
@@ -134,9 +149,15 @@ export default function Home(props) {
 
 export async function getServerSideProps() {
   const listCategory = await categoryService.listCategory();
+  const listCategoryWithProduct = await categoryService.listCategoryWithProduct(
+    { }, { productsPerPage: 8, pageNumber: 1 }
+  );
+  const listHotProduct = await productService.listHotProduct();
   return {
     props: {
       listCategory: listCategory.data,
+      listHotProduct: listHotProduct.data,
+      listCategoryWithProduct: listCategoryWithProduct.data,
     },
   };
 }
