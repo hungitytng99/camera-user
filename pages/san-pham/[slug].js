@@ -69,11 +69,14 @@ const Product = (props) => {
                             <ImagesThumb listImages={detailProduct.image} />
                         </Col>
                         <Col xs={12} md={5}>
-                            <div className="product__detail-old-price">
-                                {detailProduct.price}
-                            </div>
+                            {
+                                detailProduct.discount > 0 &&
+                                <div className="product__detail-old-price">
+                                    {detailProduct.price}đ
+                                </div>
+                            }
                             <div className="product__detail-new-price">
-                                {detailProduct.new_price}
+                                {detailProduct.new_price}đ
                             </div>
                             <div className="product__detail-sale">
                                 <div className="product__detail-sale-gift">
@@ -352,7 +355,7 @@ export async function getServerSideProps(context) {
         relatedProducts.data = relatedProducts.data.splice(0, 8);
     }
 
-    const listPost = await postService.listPost({ postsPerPage:4, pageNumber: 1 });
+    const listPost = await postService.listPost({ postsPerPage: 4, pageNumber: 1 });
     return {
         props: {
             detailProduct: detailProduct.data,

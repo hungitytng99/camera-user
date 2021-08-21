@@ -8,6 +8,8 @@ import { faCameraRetro, faPhoneVolume, faEnvelope, faAngleDown, faSearch, faBars
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { categoryService } from 'data-services/category';
 import FullPageLoading from 'ui-source/Loading/FullPageLoading';
+import { useRouter } from 'next/router'
+
 
 const customStyles = {
     content: {
@@ -34,6 +36,9 @@ const Header = () => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
     const [listCategory, setListCategory] = useState([]);
     const [isShowLoading, setIsShowLoading] = useState(false);
+    const router = useRouter()
+    console.log("PATH NAME: ", router.pathname);
+
     function openCategoryModal() {
         setCategoryIsOpen(true);
     }
@@ -58,7 +63,6 @@ const Header = () => {
         }
         getListCategory();
     }, [])
-
     return (
         <header className="header">
             {/* {isShowLoading && <FullPageLoading opacity={0.5} />} */}
@@ -105,7 +109,7 @@ const Header = () => {
                     <ul className="header-dynamic__category-list flex-center ">
                         <li className="header-dynamic__category-item ">
                             <Link href="/">
-                                <a className="header-dynamic__category-link --active ">Trang chủ</a>
+                                <a className={`header-dynamic__category-link ${router.pathname === "/" ? "--active" : ""}`}>Trang chủ</a>
                             </Link>
                         </li>
                         <li className="header-dynamic__category-item has-dropdown">
@@ -118,7 +122,9 @@ const Header = () => {
                                 {listCategory.map(category => {
                                     return (
                                         <li key={category.id} className="header-category__children-item">
-                                            <a href={category.slug} className="header-category__children-link">{category.name}</a>
+                                            <Link href={category.slug} >
+                                                <a className="header-category__children-link">{category.name}</a>
+                                            </Link>
                                         </li>
                                     )
                                 })}
@@ -127,17 +133,17 @@ const Header = () => {
                         </li>
                         <li className="header-dynamic__category-item ">
                             <Link href="/tin-tuc">
-                                <a className="header-dynamic__category-link ">Tin tức</a>
-                            </Link>
-                        </li>
-                        <li className="header-dynamic__category-item ">
-                            <Link href="/ki-thuat">
-                                <a className="header-dynamic__category-link ">Kĩ thuật</a>
+                                <a className={`header-dynamic__category-link ${router.pathname.indexOf("/tin-tuc") !== -1 ? "--active" : ""}`}>Tin tức</a>
                             </Link>
                         </li>
                         <li className="header-dynamic__category-item ">
                             <Link href="/lien-he">
-                                <a className="header-dynamic__category-link ">Liên hệ</a>
+                                <a className={`header-dynamic__category-link ${router.pathname.indexOf("/lien-he") !== -1 ? "--active" : ""}`}>Liên hệ</a>
+                            </Link>
+                        </li>
+                        <li className="header-dynamic__category-item ">
+                            <Link href="/gioi-thieu">
+                                <a className={`header-dynamic__category-link ${router.pathname.indexOf("/ky-thuat") !== -1 ? "--active" : ""}`}>Giới thiệu</a>
                             </Link>
                         </li>
                     </ul>

@@ -7,8 +7,10 @@ import { ImagesPath } from 'constants/ImagesPath';
 import Image from 'next/image'
 import { faCalendar, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { postService } from 'data-services/post';
 
 const News = (props) => {
+    const { listPost = [] } = props;
     return (
         <>
             <Head>
@@ -26,22 +28,27 @@ const News = (props) => {
                     </div>
                 </Row>
                 <Row>
-                    <Col xs={12} sm={6} md={4}>
-                        <Link href="/tin-tuc/a">
-                            <a className="news__link">
-                                <div className="news__image-box">
-                                    <Image className="news__image" src={ImagesPath.NEWS_IMAGE} alt="trang tri tin tuc" layout="fill" />
-                                </div>
-                                <div className="news__date">
-                                    <FontAwesomeIcon className="news__date-icon" icon={faCalendarAlt} />
-                                    <div className="news__date-detail">29/07/2021</div>
-                                </div>
-                                <div className="news__title text_over_flow_3">
-                                    Tải KBONE - Hướng Dẫn Cách cài đặt camera KBone trên điện thoạiTải KBONE - Hướng Dẫn Cách cài đặt camera KBone trên điện thoạiTải KBONE - Hướng Dẫn Cách cài đặt camera KBone trên điện thoại
-                                </div>
-                            </a>
-                        </Link>
-                    </Col>
+                    {listPost.map(post => {
+                        return (
+                            <Col key={post.id} xs={12} sm={6} md={4}>
+                                <Link href={post.slug} passHref prefetch={false}>
+                                    <a className="news__link">
+                                        <div className="news__image-box">
+                                            <Image className="news__image" src={post.image} alt="trang tri tin tuc" layout="fill" />
+                                        </div>
+                                        <div className="news__date">
+                                            <FontAwesomeIcon className="news__date-icon" icon={faCalendarAlt} />
+                                            <div className="news__date-detail">{post.update_at}</div>
+                                        </div>
+                                        <div className="news__title text_over_flow_3">
+                                            {post.name}
+                                        </div>
+                                    </a>
+                                </Link>
+                            </Col>
+                        )
+                    })}
+
                 </Row>
             </Layout>
         </>
@@ -49,18 +56,10 @@ const News = (props) => {
 }
 
 export async function getServerSideProps(context) {
-    // const { slug } = context.params;
-    // const mainCategoryWithSub = await mainCategoryService.listCategoryWithSubCategory();
-    // const detailProduct = await productService.detailProductBySlugAsync(slug);
-
-    // const relatedProducts = await productService.listProductBySubCategoryName(
-    //     { category: detailProduct.data.category, category: detailProduct.data.sub_category, productsPerPage: 4, pageNumber: 1 }
-    // );
+    const listPost = await postService.listPost({ postsPerPage: 24, pageNumber: 1 });
     return {
         props: {
-            // mainCategoryAndSubCategory: mainCategoryWithSub.data,
-            // detailProduct: detailProduct.data,
-            // relatedProducts: relatedProducts.data,
+            listPost: listPost.data,
         },
     };
 }
