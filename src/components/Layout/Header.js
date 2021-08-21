@@ -37,7 +37,6 @@ const Header = () => {
     const [listCategory, setListCategory] = useState([]);
     const [isShowLoading, setIsShowLoading] = useState(false);
     const router = useRouter()
-    console.log("PATH NAME: ", router.pathname);
 
     function openCategoryModal() {
         setCategoryIsOpen(true);
@@ -113,7 +112,7 @@ const Header = () => {
                             </Link>
                         </li>
                         <li className="header-dynamic__category-item has-dropdown">
-                            <a href="/danh-muc" className="header-dynamic__category-link ">
+                            <a href="/danh-muc" className={`header-dynamic__category-link ${router.pathname.indexOf("/danh-muc") !== -1 ? "--active" : ""}`}>
                                 Danh mục
                                 <FontAwesomeIcon className="header-dynamic__down-icon" icon={faAngleDown} />
                             </a>

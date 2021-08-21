@@ -25,7 +25,7 @@ export const categoryService = {
 
     detailCategoryBySlug: function (slug) {
         return apiDetailCategoryBySlug(slug).then(response => {
-            response.data = filterFieldCategory(response);
+            response.data = filterFieldCategory(response.data);
             return response;
         });
     },

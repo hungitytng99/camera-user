@@ -327,7 +327,8 @@ const Product = (props) => {
                     </div>
                 </div>
                 <div className="contact-form__form">
-                    <ContactForm closeContact={closeContactForm} />
+                    <ContactForm closeContact={closeContactForm} productName={detailProduct.name}
+                        productId={detailProduct.id} productSlug={detailProduct.slug}/>
                 </div>
             </Modal>
         </>
