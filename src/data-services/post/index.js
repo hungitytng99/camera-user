@@ -2,6 +2,7 @@
 // Data Flow: Step 2
 
 import { apiListPostByTagId } from "data-source/post";
+import { apiDetailPostBySlug } from "data-source/post";
 import { apiListPostByTagSlug } from "data-source/post";
 import { apiListPost } from "data-source/post";
 import { apiDetailPostById } from "data-source/post";
@@ -10,12 +11,18 @@ import { apiDetailPostById } from "data-source/post";
 export const postService = {
     detailPostById: function (id) {
         return apiDetailPostById(id).then(response => {
-            response.data = response.data.map(post => {
-                return filterFieldPost(post);
-            })
+            response.data = filterFieldPost( response.data);
             return response;
         });
     },
+    detailPostBySlug: function (id) {
+        return apiDetailPostBySlug(id).then(response => {
+            response.data = filterFieldPost( response.data);
+            return response;
+        });
+    },
+
+    
 
     listPost: function (params) {
         return apiListPost(params).then(response => {

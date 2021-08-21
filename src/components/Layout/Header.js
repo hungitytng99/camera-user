@@ -7,6 +7,7 @@ import Modal from 'react-modal'
 import { faCameraRetro, faPhoneVolume, faEnvelope, faAngleDown, faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { categoryService } from 'data-services/category';
+import FullPageLoading from 'ui-source/Loading/FullPageLoading';
 
 const customStyles = {
     content: {
@@ -32,6 +33,7 @@ Modal.setAppElement('#__next');
 const Header = () => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
     const [listCategory, setListCategory] = useState([]);
+    const [isShowLoading, setIsShowLoading] = useState(false);
     function openCategoryModal() {
         setCategoryIsOpen(true);
     }
@@ -46,15 +48,20 @@ const Header = () => {
     // const listCategory = useSelector(state => state.category.current)
 
     useEffect(() => {
+
         const getListCategory = async () => {
+            setIsShowLoading(true);
             const listCategoryTmp = await categoryService.listCategory();
             setListCategory(listCategoryTmp.data);
+            setIsShowLoading(false);
+
         }
         getListCategory();
     }, [])
 
     return (
         <header className="header">
+            {/* {isShowLoading && <FullPageLoading opacity={0.5} />} */}
             <div className="header-static flex-spacebetween">
                 <div className="header-static__left">
                     <div className="flex-center hide-on-576">

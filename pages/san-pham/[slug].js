@@ -352,7 +352,7 @@ export async function getServerSideProps(context) {
         relatedProducts.data = relatedProducts.data.splice(0, 8);
     }
 
-    const listPost = await postService.listPost();
+    const listPost = await postService.listPost({ postsPerPage:4, pageNumber: 1 });
     return {
         props: {
             detailProduct: detailProduct.data,

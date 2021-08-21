@@ -53,6 +53,23 @@ export const apiDetailPostById = async (id) => {
     }
 };
 
+export const apiDetailPostBySlug= async (slug) => {
+    try {
+        const response = await GET("/post/get-by-slug/" + slug);
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
 export const apiListPostByTagSlug = async (slug) => {
     try {
         const response = await GET("/post/get-by-tag-slug/" + slug);

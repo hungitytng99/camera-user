@@ -72,8 +72,8 @@ function CardProduct(props) {
                     <FontAwesomeIcon className="card-product__item-price-favor -item --active" icon={faStar} />
                     <FontAwesomeIcon className="card-product__item-price-favor -item --active" icon={faStar} />
                 </div>
-                <div className="card-product__item-price -wrap ">
-                    <div className="card-product__item-price-old ">{product.price}<span>đ</span></div>
+                <div className="card-product__item-price-wrap ">
+                    {product.discount > 0 && <div className="card-product__item-price-old ">{product.price}<span>đ</span></div>}
                     <div className="card-product__item-price-new ">{product.new_price}<span>đ</span></div>
                 </div>
 
