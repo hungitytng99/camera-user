@@ -278,7 +278,7 @@ const Product = (props) => {
                                                     <Row className="product__news-row">
                                                         <Col lg={3}>
                                                             <div className="product__news-item-img">
-                                                                <Image src={post.image} layout="fill" objectFit="contain" />
+                                                                <Image src={post.image} layout="fill" objectFit="contain" alt={post.name} />
                                                             </div>
                                                         </Col>
                                                         <Col lg={9}>

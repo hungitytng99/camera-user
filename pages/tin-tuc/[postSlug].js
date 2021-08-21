@@ -59,7 +59,7 @@ const DetailNews = (props) => {
                                                         <Row className="product__news-row">
                                                             <Col lg={3}>
                                                                 <div className="product__news-item-img">
-                                                                    <Image className="detail-news__img" src={post.image} layout="fill" objectFit="contain" />
+                                                                    <Image className="detail-news__img" src={post.image} layout="fill" objectFit="contain" alt={post.name} />
                                                                 </div>
                                                             </Col>
                                                             <Col lg={9}>

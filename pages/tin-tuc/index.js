@@ -8,13 +8,33 @@ import Image from 'next/image'
 import { faCalendar, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { postService } from 'data-services/post';
+import { useEffect, useState } from 'react';
 
 const News = (props) => {
-    const { listPost = [] } = props;
+    const { listPost = [], hasMore = false } = props;
+    const [listPostState, setListPostState] = useState(listPost);
+    const [hasMoreState, setHasMoreState] = useState(hasMore);
+    const [nextPage, setNextPage] = useState(4);
+    console.log("HAS MORE: ", hasMore);
+    const getMorePost = async (e) => {
+        let nextPage = e.target.dataset.nextpage;
+        const morePost = await postService.listPost({ postsPerPage: 6, pageNumber: nextPage });
+        console.log(morePost, nextPage);
+        setListPostState([...listPostState, ...morePost.data]);
+        setNextPage(++nextPage);
+    }
+
+    useEffect(() => {
+        const checkShowHasMore = async () => {
+            const morePost = await postService.listPost({ postsPerPage: 6, pageNumber: nextPage });
+            setHasMoreState(morePost.data.length > 0);
+        };
+        checkShowHasMore();
+    }, [nextPage])
     return (
         <>
             <Head>
-                <title>Bai dang</title>
+                <title>Tin tức</title>
             </Head>
             <Layout>
                 <Row className="news__header">
@@ -28,7 +48,7 @@ const News = (props) => {
                     </div>
                 </Row>
                 <Row>
-                    {listPost.map(post => {
+                    {listPostState.map(post => {
                         return (
                             <Col key={post.id} xs={12} sm={6} md={4}>
                                 <Link href={post.slug} passHref prefetch={false}>
@@ -48,7 +68,13 @@ const News = (props) => {
                             </Col>
                         )
                     })}
-
+                    {
+                        hasMoreState ? <div className="product__has-more-box">
+                            <div className="product__has-more" data-nextpage={nextPage} onClick={getMorePost}>
+                                Xem thêm
+                            </div>
+                        </div> : ""
+                    }
                 </Row>
             </Layout>
         </>
@@ -56,10 +82,17 @@ const News = (props) => {
 }
 
 export async function getServerSideProps(context) {
-    const listPost = await postService.listPost({ postsPerPage: 24, pageNumber: 1 });
+    const listPost = await postService.listPost({ postsPerPage: 18, pageNumber: 1 });
+    const nextPost = await postService.listPost({ postsPerPage: 6, pageNumber: 4 });
+    let hasMore = false;
+    console.log("NEXT: ", nextPost);
+    if (nextPost.data.length > 0) {
+        hasMore = true;
+    }
     return {
         props: {
             listPost: listPost.data,
+            hasMore: hasMore
         },
     };
 }

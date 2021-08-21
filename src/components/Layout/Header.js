@@ -112,10 +112,13 @@ const Header = () => {
                             </Link>
                         </li>
                         <li className="header-dynamic__category-item has-dropdown">
-                            <a href="/danh-muc" className={`header-dynamic__category-link ${router.pathname.indexOf("/danh-muc") !== -1 ? "--active" : ""}`}>
-                                Danh mục
-                                <FontAwesomeIcon className="header-dynamic__down-icon" icon={faAngleDown} />
-                            </a>
+                            <Link href="/danh-muc">
+                                <a className={`header-dynamic__category-link ${router.pathname.indexOf("/danh-muc") !== -1 ? "--active" : ""}`}>
+                                    Danh mục
+                                    <FontAwesomeIcon className="header-dynamic__down-icon" icon={faAngleDown} />
+
+                                </a>
+                            </Link>
                             {/* Dropdown */}
                             <ul className="header-category__children-list header__category-dropdown">
                                 {listCategory.map(category => {
@@ -196,7 +199,7 @@ const Header = () => {
                     </li>
                 </ul>
             </Modal>
-        </header>
+        </header >
     )
 }
 export default Header;

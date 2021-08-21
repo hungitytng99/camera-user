@@ -140,7 +140,6 @@ export async function getServerSideProps() {
     let hasMore = false;
     if (listNextProduct.data.length > 0) {
         hasMore = true;
-        console.log("MORE");
     }
     return {
         props: {

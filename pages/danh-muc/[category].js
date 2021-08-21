@@ -1,21 +1,14 @@
 import { Breadcrumb, Col, Row } from 'react-bootstrap';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ContactForm from 'components/ContactForm';
 import { useState } from 'react';
-import Modal from 'react-modal';
 import Link from 'next/link'
 import Head from 'next/head'
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Layout from 'components/Layout/Layout';
 import CardWithTitle from 'ui-source/Card/CardWithTitle';
 import CardProduct from 'ui-source/Card/CardProduct';
-import Image from 'next/image'
 import { categoryService } from 'data-services/category';
 import { productService } from 'data-services/product';
 
-
-Modal.setAppElement('#__next');
 const Category = (props) => {
     const { detailCategory = {}, listCategory = [] } = props;
     return (
