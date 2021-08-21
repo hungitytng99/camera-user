@@ -16,24 +16,24 @@ import { ImagesPath } from 'constants/ImagesPath';
 import Image from 'next/image'
 import { productService } from 'data-services/product';
 import { categoryService } from 'data-services/category';
+import { postService } from 'data-services/post';
+import { date } from 'yup/lib/locale';
 
 
 Modal.setAppElement('#__next');
 // detailProduct = {},
 const Product = (props) => {
-    const { relatedProducts = {}, detailProduct = {} } = props;
+    const { relatedProducts = {}, detailProduct = {}, listPost = [] } = props;
     const [contactModal, setContactModal] = useState(false);
     const showContactModal = (e) => {
         e.stopPropagation();
         setContactModal(true);
     }
+    console.log("LSIT POST: ", listPost);
 
     const hideContactModal = () => {
         setContactModal(false);
     }
-
-    console.log("DETAIL:  ",detailProduct.image);
-
     const closeContactForm = (e) => {
         e.preventDefault();
         setContactModal(false);
@@ -258,42 +258,45 @@ const Product = (props) => {
                             </Row>
                         </CardWithTitle>
                     </Row>
-                    <Row>
+                    {detailProduct.detail && <Row>
                         <Col lg={8} className="product__description">
-                            Đây là thông tin chi tiết sản phẩm:
-                            Trọn bộ 7 camera KBVision 2MP đáp ứng các giải pháp lắp đặt camera cho các không gian lớn, nếu bạn đang tìm một giải pháp giám sát an ninh giá rẻ với chất lượng hình ảnh Full HD, độ ổn định cao, có khả năng quan sát ban đêm rõ nét thì trọn bộ camera này sẽ chắc chắn làm bạn hài lòng.
-                            Hiện tại Hải Nam đang có chương trình khuyến mãi lên đến 59% đối với một số trọn bộ camera có dây mang thương hiệu KBVision, Dahua, Hikvision,.. Mời bạn tham khảo thêm
+                            <div dangerouslySetInnerHTML={{ __html: detailProduct.detail }}></div>
                         </Col>
-                        <Col lg={4} className="product__news">
+                        {listPost.length > 0 && <Col lg={4} className="product__news">
                             <div className="product__news-title">
                                 Tin tức mới
                             </div>
                             <ul className="product__news-list">
-                                <li className="product__news-item">
-                                    <Link href="/" passHref>
-                                        <a>
-                                            <Row className="product__news-row">
-                                                <Col lg={3}>
-                                                    <div className="product__news-item-img">
-                                                        <Image src={ImagesPath.NEWS_THUMB} layout="fill" objectFit="contain" />
-                                                    </div>
-                                                </Col>
-                                                <Col lg={9}>
-                                                    <div className="product__news-item-title text_over_flow_2">
-                                                        Lắp Đặt Camera Quan Sát Giá Rẻ chỉ từ 300K Cho Gia Đình, Văn Phòng, Cửa Hàng
-                                                    </div>
-                                                    <div className="product__news-date">
-                                                        <FontAwesomeIcon className="product__news-date-icon" icon={faCalendarAlt} />
-                                                        <div className="product__news-date-product">29/07/2021</div>
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        </a>
-                                    </Link>
-                                </li>
+                                {listPost.map((post) => {
+                                    return (
+                                        <li key={post.id} className="product__news-item">
+                                            <Link href={post.slug} passHref>
+                                                <a>
+                                                    <Row className="product__news-row">
+                                                        <Col lg={3}>
+                                                            <div className="product__news-item-img">
+                                                                <Image src={post.image} layout="fill" objectFit="contain" />
+                                                            </div>
+                                                        </Col>
+                                                        <Col lg={9}>
+                                                            <div className="product__news-item-title text_over_flow_2">
+                                                                {post.name}
+                                                            </div>
+                                                            <div className="product__news-date">
+                                                                <FontAwesomeIcon className="product__news-date-icon" icon={faCalendarAlt} />
+                                                                <div className="product__news-date-product">{post.update_at}</div>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
                             </ul>
-                        </Col>
+                        </Col>}
                     </Row>
+                    }
 
                     <Row className="product__contact-form">
                         <div className="product__contact-form-header">Gửi cho chúng tôi thông tin của bạn</div>
@@ -348,13 +351,13 @@ export async function getServerSideProps(context) {
     } else if (relatedProducts.data.length > 8) {
         relatedProducts.data = relatedProducts.data.splice(0, 8);
     }
-    console.log("RELOAD");
+
+    const listPost = await postService.listPost();
     return {
         props: {
-            // mainCategoryAndSubCategory: mainCategoryWithSub.data,
             detailProduct: detailProduct.data,
             relatedProducts: relatedProducts.data,
-            // relatedProducts: relatedProducts.data,
+            listPost: listPost.data,
         },
     };
 }

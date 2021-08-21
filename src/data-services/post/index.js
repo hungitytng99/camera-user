@@ -51,7 +51,16 @@ export const filterFieldPost = (post) => {
         image: post.url_image,
         content: post.content,
         tag_id: post.tag_id,
-        slug: post.slug,
-        update_at: post.update_at
+        slug: "/tin-tuc/"+ post.slug,
+        update_at: convertDayMonthYear(post.update_at) || '',
     }
+}
+
+export const convertDayMonthYear = (dateString) => {
+    let date = new Date(dateString);
+    var month = date.getUTCMonth() + 1; //months from 1-12
+    var day = date.getUTCDate();
+    var year = date.getUTCFullYear();
+
+    return (day + "/" + month + "/" + year);
 }

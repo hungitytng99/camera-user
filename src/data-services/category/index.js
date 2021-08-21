@@ -18,7 +18,6 @@ export const categoryService = {
 
     detailCategoryById: function (id) {
         return apiDetailCategoryById(id).then(response => {
-            console.log("RES", id ,response);
             response.data = filterFieldCategory(response.data);
             return response;
         });

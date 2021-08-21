@@ -24,7 +24,6 @@ const ContactForm = (props) => {
     const [isShowLoading, setIsShowLoading] = useState(false);
     const [messageAfterValidate, setMessageAfterValidate] = useState('');
     const sendContact = async (values) => {
-        console.log(values);
         try {
             const inquiryBody = {
                 customer_name: values.name,
@@ -35,7 +34,6 @@ const ContactForm = (props) => {
                 product_link: Configs.DOMAIN + productSlug,
                 product_name: productName
             }
-            console.log(inquiryBody);
             const response = await inquiryService.sendCustomerInquiry(inquiryBody);
             setMessageAfterValidate(response.message);
         } catch (error) {

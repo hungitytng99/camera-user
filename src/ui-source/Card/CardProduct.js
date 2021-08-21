@@ -28,7 +28,6 @@ function CardProduct(props) {
     const [productName, setProductName] = useState("");
     const showContactModal = (e) => {
         e.stopPropagation();
-        console.log(e.target.dataset.id);
         setContactModal(true);
     }
 
@@ -53,7 +52,7 @@ function CardProduct(props) {
                         {contactText}
                     </button>
                     {
-                        product.discount != 0 &&
+                        product.discount > 0 &&
                         <div className="card-product__item-discount">
                             GIẢM {product.discount}%
                         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Link from 'next/link'
 
-function CardWithTitle(props) {
+export default function CardWithTitle(props) {
     const { children, title = "", link = "/" } = props;
     return (
         <div className="card-with-title">
@@ -21,5 +21,3 @@ function CardWithTitle(props) {
         </div>
     );
 }
-
-export default CardWithTitle;

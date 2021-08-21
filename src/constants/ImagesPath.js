@@ -8,9 +8,7 @@ import news_thumb from 'assets/images/homepage/news/news-thumb.jpg'
 import news_decorate from 'assets/images/homepage/news/news-decorate.png'
 import news_image from 'assets/images/homepage/news/news-image.jpg'
 
-
-
-const ImagesPath = {
+export const ImagesPath = {
     LOGO: logo,
     PRODUCT_6: product_6,
     HOME_BANNER_1: banner_1,
@@ -23,4 +21,3 @@ const ImagesPath = {
 
 
 }
-export { ImagesPath }

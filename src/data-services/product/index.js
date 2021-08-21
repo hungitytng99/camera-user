@@ -63,15 +63,16 @@ export const productService = {
 
 export const filterFieldProduct = (product) => {
     return {
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        price: numberWithCommas(product.price),
-        discount: product.discount,
-        new_price: numberWithCommas(product.new_price),
-        category_id: product.category_id,
-        slug: "/san-pham/" + product.slug,
-        image: filterFieldImage(product.list_product_images, product.name),
+        id: product.id || 0,
+        name: product.name || '',
+        description: product.description || '',
+        detail: '<p>Hey this editor rocks 😀</p>',
+        price: numberWithCommas(product.price) || 0,
+        discount: product.discount || 0,
+        new_price: numberWithCommas(product.new_price) || 0,
+        category_id: product.category_id || 0,
+        slug: "/san-pham/" + product.slug || '',
+        image: filterFieldImage(product.list_product_images, product.name) || '',
     }
 }
 
