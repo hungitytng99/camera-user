@@ -1,10 +1,19 @@
 import { Col, Container, Row } from 'react-bootstrap'
-// import Link from 'next/link'
-// import Image from 'next/image'
-// import { ImagesPath } from 'constants/ImagesPath';
-import React from 'react';
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react';
+import { categoryService } from 'data-services/category';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faMap, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Footer() {
+    const [listCategory, setListCategory] = useState([]);
+    useEffect(() => {
+        const getListCategory = async () => {
+            const listCategoryTmp = await categoryService.listCategory();
+            setListCategory(listCategoryTmp.data);
+        }
+        getListCategory();
+    }, [])
     return (
         <>
             <footer className="footer__background ">
@@ -12,11 +21,14 @@ function Footer() {
                     <Row className="footer-contact">
                         <Col className="footer-contact__item" md={3} sm={12} xs={12}>
                             <div className="footer-contact__item-title ">
-                                About Shop
+                                Thông tin về shop
                             </div>
                             <div className="footer-contact__item-underline "></div>
                             <div className="footer-contact__item-content ">
-                                Aliquam tempor sagittis neque, vel aliquam risus consectetur vel. Aenean hendrerit, elit a lacinia suscipit, orci mauris vulputate mi, eu interdum nunc diam at ipsum.
+                                <strong>Camera XXX</strong> phân phối Camera Wifi giá sỉ và lắp đặt Camera giám sát uy yín. Cam kết sản phẩm chính hãng, dịch vụ chuyên nghiệp, giá tốt nhất.
+                                <div><strong>Thời gian làm việc:</strong> 8h-17h Tất cả cá ngày trong tuần</div>
+                                <strong>Thông tin liên hệ:</strong> Công ty XXX
+                                <div><strong>Giấy chứng nhận đăng ký kinh doanh:</strong> 0316411013. Do sở kế hoạch đầu tư Thành Phố Hồ Chí Minh cấp ngày: 29/07/2020</div>
                             </div>
                             <ul className="footer-contact__item-icon-list ">
                                 <a href=" ">
@@ -33,76 +45,53 @@ function Footer() {
                                 </a>
                             </ul>
                         </Col>
-                        <Col className="footer-contact__item" lg={1} sm={0} xs={0}/>
+                        <Col className="footer-contact__item" lg={1} sm={0} xs={0} />
                         <Col className="footer-contact__item" md={3} sm={12} xs={12}>
                             <div className="footer-contact__item-title ">
-                                Navigation
+                                Danh mục
                             </div>
                             <div className="footer-contact__item-underline "></div>
                             <div className="footer-contact__wrapper row ">
                                 <ul className="footer-contact__wrapper-list col xl-6 l-6 m-6 sm-6 c-6 ">
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Home</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">About Us</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Our Blog</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Women</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Men</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Contact us</a>
-                                    </li>
-                                </ul>
-                                <ul className="footer-contact__wrapper-list col xl-6 l-6 m-6 sm-6 c-6 ">
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">FAQs</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Featured Brands</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Gift Vouchers</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Affiliates</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Specials Gift</a>
-                                    </li>
-                                    <li className="footer-contact__wrapper-item ">
-                                        <a href=" " className="footer-contact__wrapper-link ">Term & Conditions</a>
-                                    </li>
+                                    {listCategory.map((category) => {
+                                        return (
+                                            <li key={category.id} className="footer-contact__wrapper-item ">
+                                                <Link href={category.slug}>
+                                                    <a className="footer-contact__wrapper-link">{category.name}</a>
+                                                </Link>
+                                            </li>
+                                        )
+                                    })}
                                 </ul>
                             </div>
                         </Col>
-                        <Col className="footer-contact__item" lg={1} sm={0} xs={0}/>
+                        <Col className="footer-contact__item" lg={1} sm={0} xs={0} />
                         <Col className="footer-contact__item" md={3} sm={12} xs={12}>
                             <div className="footer-contact__item-title ">
-                                Shop Location
+                                Địa chỉ shop
                             </div>
                             <div className="footer-contact__item-underline "></div>
                             <ul className="footer-contact__info-list ">
                                 <li className="footer-contact__info-item">
-                                    <a href="" className="footer-contact__info-link">
-                                        <i className="footer-contact__info-icon far fa-map "></i> 500 Hennessy Road Causeway Bay, Hong Kong
-                                    </a>
+                                    <Link href="">
+                                        <a href="" className="footer-contact__info-link">
+                                            <FontAwesomeIcon className="footer-contact__info-icon" icon={faMap} /> Đường XXX YYY ZZZ Thành phố Bắc Ninh
+                                        </a>
+                                    </Link>
                                 </li>
                                 <li className="footer-contact__info-item">
-                                    <a href="" className="footer-contact__info-link">
-                                        <i className="footer-contact__info-icon fas fa-phone-alt "></i> +1 23456789
-                                    </a>
+                                    <Link href={{ pathname: 'tel:84966854224' }} >
+                                        <a className="footer-contact__info-link">
+                                            <FontAwesomeIcon className="footer-contact__info-icon" icon={faPhoneAlt} />+1 23456789
+                                        </a>
+                                    </Link>
                                 </li>
                                 <li className="footer-contact__info-item">
-                                    <a href="" className="footer-contact__info-link">
-                                        <i className="footer-contact__info-icon far fa-envelope "></i> contact@yourdomain.com
-                                    </a>
+                                    <Link href={{ pathname: 'mailto:sales@giangminhviet.com' }} >
+                                        <a className="footer-contact__info-link">
+                                            <FontAwesomeIcon className="footer-contact__info-icon" icon={faEnvelope} /> contact@camera.com
+                                        </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </Col>
@@ -112,8 +101,7 @@ function Footer() {
                 <Container>
                     <footer className="footer">
                         <div className="footer-cpright">
-                            <div className="footer-cpright__left ">Shop camera Bắc Ninh, 2021
-                            </div>
+                            <div className="footer-cpright__left ">Shop camera Bắc Ninh, 2021</div>
                         </div>
                     </footer>
                 </Container>

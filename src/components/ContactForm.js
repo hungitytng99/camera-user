@@ -67,9 +67,9 @@ const ContactForm = (props) => {
                             <InputField
                                 errors={errors}
                                 touched={touched}
-                                label="Product"
+                                label="Sản phẩm"
                                 name="product"
-                                placeholder="Product name"
+                                placeholder="Tên sản phẩm"
                                 isRequired={true}
                                 value={productName}
                                 disabled={true}
@@ -79,17 +79,17 @@ const ContactForm = (props) => {
                         <InputField
                             errors={errors}
                             touched={touched}
-                            label="Name"
+                            label="Tên"
                             name="name"
-                            placeholder="Name"
+                            placeholder="Tên của bạn"
                             isRequired={true}
                         />
                         <InputField
                             errors={errors}
                             touched={touched}
-                            label="Phone"
+                            label="Điện thoại"
                             name="phone"
-                            placeholder="Phone number"
+                            placeholder="Số điện thoại"
                             isRequired={true}
 
                         />
@@ -105,9 +105,9 @@ const ContactForm = (props) => {
                         <InputField
                             errors={errors}
                             touched={touched}
-                            label="Message"
+                            label="Lời nhắn"
                             name="message"
-                            placeholder="Leave your message here"
+                            placeholder="Để lại lời nhắn của bạn"
                             type="textarea"
                             rows={3}
                         />

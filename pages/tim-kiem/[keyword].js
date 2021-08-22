@@ -13,7 +13,7 @@ const Search = (props) => {
     return (
         <>
             <Head>
-                <title>Tìm kiếm "{keyword}"</title>
+                <title>Tìm kiếm &quot;{keyword}&quot;</title>
             </Head>
             <Layout>
                 <Row>

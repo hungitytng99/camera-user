@@ -34,6 +34,7 @@ const Header = () => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
     const [listCategory, setListCategory] = useState([]);
     const [searchParams, setSearchParams] = useState('');
+    const [collapseCategory, setCollapseCategory] = useState(false);
     const router = useRouter()
 
     function openCategoryModal() {
@@ -50,9 +51,9 @@ const Header = () => {
     const searchParamsChange = (e) => {
         setSearchParams(e.target.value);
     }
-    
+
     const handlePressEnter = (e) => {
-        if(e.key === "Enter"){
+        if (e.key === "Enter") {
             search();
         }
     }
@@ -78,7 +79,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="header-static__right flex-center">
-                    <Link href="/">
+                    <Link href={{ pathname: 'tel:84966854224' }}>
                         <a className="header-static__right-setting flex-center">
                             <FontAwesomeIcon className="header-static__left static-icon phone" icon={faPhoneVolume} />
                             <div className="header-static__right-setting-text">
@@ -86,8 +87,8 @@ const Header = () => {
                             </div>
                         </a>
                     </Link>
-                    <Link href="/" >
-                        <a className="header-static__right-login flex-center">
+                    <Link href={{ pathname: 'mailto:sales@giangminhviet.com' }} >
+                        <a target="_blank" data-tip="Mail: sales@giangminhviet.com" className="header-static__right-login flex-center">
                             <FontAwesomeIcon className="header-static__left static-icon" icon={faEnvelope} />
                             <div className="right__login-text">
                                 camera@gmail.com
@@ -146,11 +147,6 @@ const Header = () => {
                                 <a className={`header-dynamic__category-link ${router.pathname.indexOf("/lien-he") !== -1 ? "--active" : ""}`}>Liên hệ</a>
                             </Link>
                         </li>
-                        <li className="header-dynamic__category-item ">
-                            <Link href="/gioi-thieu">
-                                <a className={`header-dynamic__category-link ${router.pathname.indexOf("/ky-thuat") !== -1 ? "--active" : ""}`}>Giới thiệu</a>
-                            </Link>
-                        </li>
                     </ul>
                 </div>
                 <div className="header-dynamic__right flex-center">
@@ -173,31 +169,45 @@ const Header = () => {
                 </div>
                 <ul className="category-menu__list ">
                     <li className="category-menu__item ">
-                        <a href=" " className="category-menu__link ">Home</a>
+                        <Link href="/">
+                            <a href=" " className="category-menu__link ">Trang chủ</a>
+                        </Link>
+                    </li>
+                    <li className="category-menu__item dropdown">
+                        <div className="category-menu__link dropdown" onClick={() => setCollapseCategory(!collapseCategory)}>
+                            Danh mục
+                            <FontAwesomeIcon icon={faAngleDown} />
+                        </div>
+                        {
+                            collapseCategory &&
+                            <ul className="category-menu__dropdown">
+                                {listCategory.map(category => {
+                                    return (
+                                        <li key={category.id} className="category-menu__dropdown-item" onClick={() => {setCategoryIsOpen(false)}}>
+                                            <Link href={category.slug} >
+                                                <a className="category-menu__dropdown-link">{category.name}</a>
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        }
                     </li>
                     <li className="category-menu__item ">
-                        <a href=" " className="category-menu__link ">Women</a>
+                        <Link href="/tin-tuc">
+                            <a href=" " className="category-menu__link ">Tin tức</a>
+                        </Link>
                     </li>
                     <li className="category-menu__item ">
-                        <a href=" " className="category-menu__link ">Men</a>
-                    </li>
-                    <li className="category-menu__item ">
-                        <a href=" " className="category-menu__link ">About us</a>
-                    </li>
-                    <li className="category-menu__item ">
-                        <a href=" " className="category-menu__link ">Blog</a>
-                    </li>
-                    <li className="category-menu__item ">
-                        <a href=" " className="category-menu__link ">Collections</a>
-                    </li>
-                    <li className="category-menu__item ">
-                        <a href=" " className="category-menu__link ">Contact</a>
+                        <Link href="/lien-he">
+                            <a href=" " className="category-menu__link ">Liên hệ</a>
+                        </Link>
                     </li>
                     <li className="category-menu__item --search show-on-576-flex">
                         <div className="category-menu__item-icon">
                             <FontAwesomeIcon onClick={search} icon={faSearch} />
                         </div>
-                        <input className="category-menu__item-search" type="text" placeholder="Tìm kiếm sản phẩm..." />
+                        <input value={searchParams} onKeyDown={handlePressEnter} onChange={searchParamsChange} className="category-menu__item-search" type="text" placeholder="Tìm kiếm sản phẩm..." />
 
                     </li>
                 </ul>
