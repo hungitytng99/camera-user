@@ -9,13 +9,12 @@ import { faCalendar, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { postService } from 'data-services/post';
 import { useEffect, useState } from 'react';
-
+const { convert } = require('html-to-text');
 const News = (props) => {
     const { listPost = [], hasMore = false } = props;
     const [listPostState, setListPostState] = useState(listPost);
     const [hasMoreState, setHasMoreState] = useState(hasMore);
     const [nextPage, setNextPage] = useState(4);
-    console.log("HAS MORE: ", hasMore);
     const getMorePost = async (e) => {
         let nextPage = e.target.dataset.nextpage;
         const morePost = await postService.listPost({ postsPerPage: 6, pageNumber: nextPage });
@@ -31,6 +30,8 @@ const News = (props) => {
         };
         checkShowHasMore();
     }, [nextPage])
+
+    console.log(listPostState);
     return (
         <>
             <Head>
@@ -63,6 +64,12 @@ const News = (props) => {
                                         <div className="news__title text_over_flow_3">
                                             {post.name}
                                         </div>
+                                        <div className="news__demo-content text_over_flow_2">{convert(post.content, {
+                                            wordwrap: 130,
+                                            selectors: [{ selector: 'img', format: 'skip' },
+                                            { selector: 'a', options: { ignoreHref: true } }
+                                            ]
+                                        })}</div>
                                     </a>
                                 </Link>
                             </Col>

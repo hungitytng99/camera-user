@@ -17,6 +17,7 @@
         "bootstrap": "^5.1.0",
         "eslint-import-resolver-typescript": "^2.4.0",
         "formik": "^2.2.9",
+        "html-to-text": "^8.0.0",
         "i": "^0.3.6",
         "next": "11.1.0",
         "npm": "^7.20.6",

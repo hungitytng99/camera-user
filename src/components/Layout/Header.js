@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { ImagesPath } from 'constants/ImagesPath';
-import { Container, Row, Col, Collapse } from 'react-bootstrap';
 import Link from 'next/link'
 import Image from 'next/image'
 import Modal from 'react-modal'
 import { faCameraRetro, faPhoneVolume, faEnvelope, faAngleDown, faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { categoryService } from 'data-services/category';
-import FullPageLoading from 'ui-source/Loading/FullPageLoading';
 import { useRouter } from 'next/router'
 
 
@@ -35,7 +33,7 @@ Modal.setAppElement('#__next');
 const Header = () => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
     const [listCategory, setListCategory] = useState([]);
-    const [isShowLoading, setIsShowLoading] = useState(false);
+    const [searchParams, setSearchParams] = useState('');
     const router = useRouter()
 
     function openCategoryModal() {
@@ -45,20 +43,25 @@ const Header = () => {
         setCategoryIsOpen(false);
     }
     const search = () => {
-        if (searchInput.current.value) {
-            location.href = "/search/" + searchInput.current.value;
+        if (searchParams) {
+            location.href = "/tim-kiem/" + searchParams;
+        }
+    }
+    const searchParamsChange = (e) => {
+        setSearchParams(e.target.value);
+    }
+    
+    const handlePressEnter = (e) => {
+        if(e.key === "Enter"){
+            search();
         }
     }
     // const listCategory = useSelector(state => state.category.current)
-
     useEffect(() => {
 
         const getListCategory = async () => {
-            setIsShowLoading(true);
             const listCategoryTmp = await categoryService.listCategory();
             setListCategory(listCategoryTmp.data);
-            setIsShowLoading(false);
-
         }
         getListCategory();
     }, [])
@@ -152,7 +155,7 @@ const Header = () => {
                 </div>
                 <div className="header-dynamic__right flex-center">
                     <div className="search-bar hide-on-576">
-                        <input placeholder="Tìm kiếm sản phẩm..." type="text" className="search-bar__input" />
+                        <input value={searchParams} onKeyDown={handlePressEnter} onChange={searchParamsChange} placeholder="Tìm kiếm sản phẩm..." type="text" className="search-bar__input" />
                         <FontAwesomeIcon onClick={search} className="search-bar__search-icon" icon={faSearch} />
                     </div>
                 </div>

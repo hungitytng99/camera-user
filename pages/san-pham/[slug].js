@@ -306,7 +306,7 @@ const Product = (props) => {
                         <ContactForm
                             productSlug={detailProduct.slug}
                             productId={detailProduct.id}
-                            productName={detailProduct.title} />
+                            productName={detailProduct.name} />
                     </Row>
                 </div>
             </Layout>
