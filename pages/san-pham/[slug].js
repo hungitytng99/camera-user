@@ -138,8 +138,7 @@ const Product = (props) => {
                                 <div className="product__detail-special-title">
                                     Thông tin nổi bật
                                 </div>
-                                <div className="product__detail-special-content">
-                                    {detailProduct.description}
+                                <div className="detail-news__content" dangerouslySetInnerHTML={{ __html: detailProduct.description }}>
                                 </div>
                             </div>
                             <div className="product__detail-contact">
@@ -328,7 +327,7 @@ const Product = (props) => {
                 </div>
                 <div className="contact-form__form">
                     <ContactForm closeContact={closeContactForm} productName={detailProduct.name}
-                        productId={detailProduct.id} productSlug={detailProduct.slug}/>
+                        productId={detailProduct.id} productSlug={detailProduct.slug} />
                 </div>
             </Modal>
         </>
