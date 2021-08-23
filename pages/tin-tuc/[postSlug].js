@@ -25,7 +25,7 @@ const DetailNews = (props) => {
                             <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
                             <Breadcrumb.Item href="/tin-tuc/">Tin tức</Breadcrumb.Item>
                             <Breadcrumb.Item active>
-                            {detailPost.name}
+                                {detailPost.name}
                             </Breadcrumb.Item>
                         </Breadcrumb>
                     </Col>
@@ -59,7 +59,7 @@ const DetailNews = (props) => {
                                                         <Row className="product__news-row">
                                                             <Col lg={3}>
                                                                 <div className="product__news-item-img">
-                                                                    <Image className="detail-news__img" src={post.image} layout="fill" objectFit="contain" alt={post.name} />
+                                                                    <Image className="detail-news__img" src={post.image} layout="fill" objectFit="cover" alt={post.name} />
                                                                 </div>
                                                             </Col>
                                                             <Col lg={9}>
@@ -111,25 +111,35 @@ const DetailNews = (props) => {
 
 export async function getServerSideProps(context) {
     const { postSlug } = context.query;
-    const detailPost = await postService.detailPostBySlug(postSlug);
-    let otherPost = await postService.listPost();
-    otherPost.data = otherPost.data.filter((post) => {
-        if (post.id !== detailPost.data.id)
-            return post;
-    })
-    // only show maximum of 4 post
-    if (otherPost.data.length > 4) {
-        otherPost.data = otherPost.data.splice(0, 4);
+    let detailPost = {};
+    let otherPost = {};
+    let listCategory = [];
+    try {
+        detailPost = await postService.detailPostBySlug(postSlug);
+        otherPost = await postService.listPost();
+        otherPost.data = otherPost.data.filter((post) => {
+            if (post.id !== detailPost.data.id)
+                return post;
+        })
+        // only show maximum of 4 post
+        if (otherPost.data.length > 4) {
+            otherPost.data = otherPost.data.splice(0, 4);
+        }
+
+        listCategory = await categoryService.listCategory();
+        return {
+            props: {
+                detailPost: detailPost.data,
+                otherPost: otherPost.data,
+                listCategory: listCategory.data,
+            },
+        };
+    } catch (error) {
+        return {
+            notFound: true
+        };
     }
 
-    const listCategory = await categoryService.listCategory();
-    return {
-        props: {
-            detailPost: detailPost.data,
-            otherPost: otherPost.data,
-            listCategory: listCategory.data,
-        },
-    };
 }
 
 export default DetailNews

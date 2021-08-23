@@ -12,7 +12,7 @@ function CardReview(props) {
         <Row className="card-review">
             <Col md={3}>
                 <div className="card-review__img">
-                    <Image src={ImagesPath.REVIEW} layout="fill" objectFit="contain" alt="camara cam nhan nguoi dung anh" className="card-review__content-wrapper-img " />
+                    <Image src={ImagesPath.REVIEW} layout="fill" objectFit="cover" alt="camara cam nhan nguoi dung anh" className="card-review__content-wrapper-img " />
                 </div>
             </Col>
             <Col md={9}>

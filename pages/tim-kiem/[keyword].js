@@ -51,15 +51,19 @@ const Search = (props) => {
 }
 export async function getServerSideProps(context) {
     const { keyword } = context.params;
-    const listProduct = await productService.listProduct({ search: keyword });
-    console.log(listProduct);
-    // const suggestProduct = await productService.listProductAsync({ productsPerPage: 8, pageNumber: 1 });
-    return {
-        props: {
-            listProduct: listProduct.data,
-            keyword: keyword,
-            // suggestProduct: suggestProduct.data,
-        },
-    };
+    let listProduct = [];
+    try {
+        listProduct = await productService.listProduct({ search: keyword });
+        return {
+            props: {
+                listProduct: listProduct.data,
+                keyword: keyword,
+            },
+        };
+    } catch (error) {
+        return {
+            notFound: true
+        };
+    }
 }
 export default Search

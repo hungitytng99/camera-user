@@ -12,12 +12,10 @@ import Layout from 'components/Layout/Layout';
 import { faGift, faCheckCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
 import CardWithTitle from 'ui-source/Card/CardWithTitle';
 import CardProduct from 'ui-source/Card/CardProduct';
-import { ImagesPath } from 'constants/ImagesPath';
 import Image from 'next/image'
 import { productService } from 'data-services/product';
 import { categoryService } from 'data-services/category';
 import { postService } from 'data-services/post';
-import { date } from 'yup/lib/locale';
 
 
 Modal.setAppElement('#__next');
@@ -29,7 +27,7 @@ const Product = (props) => {
         e.stopPropagation();
         setContactModal(true);
     }
-    console.log("LSIT POST: ", listPost);
+    console.log("DETAIL: ", detailProduct);
 
     const hideContactModal = () => {
         setContactModal(false);
@@ -38,6 +36,9 @@ const Product = (props) => {
         e.preventDefault();
         setContactModal(false);
     }
+    // if(detailProduct && Object.keys(detailProduct).length === 0 && detailProduct.constructor === Object) {
+    //     return 
+    // }
     return (
         <>
             <Head>
@@ -138,7 +139,7 @@ const Product = (props) => {
                                 <div className="product__detail-special-title">
                                     Thông tin nổi bật
                                 </div>
-                                <div className="detail-news__content" dangerouslySetInnerHTML={{ __html: detailProduct.description }}>
+                                <div className="product__detail-short-desc" dangerouslySetInnerHTML={{ __html: detailProduct.description }}>
                                 </div>
                             </div>
                             <div className="product__detail-contact">
@@ -277,7 +278,7 @@ const Product = (props) => {
                                                     <Row className="product__news-row">
                                                         <Col lg={3}>
                                                             <div className="product__news-item-img">
-                                                                <Image src={post.image} layout="fill" objectFit="contain" alt={post.name} />
+                                                                <Image src={post.image} layout="fill" objectFit="cover" alt={post.name} />
                                                             </div>
                                                         </Col>
                                                         <Col lg={9}>
@@ -336,33 +337,43 @@ const Product = (props) => {
 
 export async function getServerSideProps(context) {
     const { slug } = context.params;
-    let detailProduct = await productService.detailProductBySlug(slug);
-    const detailCategory = await categoryService.detailCategoryById(detailProduct.data.category_id);
-    detailProduct.data = {
-        ...detailProduct.data, category_name: detailCategory.data.name,
-        category_slug: detailCategory.data.slug
-    }
-    const relatedProducts = await productService.listProductByCategoryId(detailProduct.data.category_id);
-    relatedProducts.data = relatedProducts.data.filter((product) => {
-        if (product.id !== detailProduct.data.id) {
-            return product;
+    let detailProduct = {};
+    let detailCategory = {};
+    let relatedProducts = [];
+    let listPost = [];
+    try {
+        detailProduct = await productService.detailProductBySlug(slug);
+        detailCategory = await categoryService.detailCategoryById(detailProduct.data.category_id);
+        detailProduct.data = {
+            ...detailProduct.data, category_name: detailCategory.data.name || '',
+            category_slug: detailCategory.data.slug
         }
-    })
-    // Slit list product into 4 or 8 product
-    if (relatedProducts.data.length > 4 && relatedProducts.data.length < 8) {
-        relatedProducts.data = relatedProducts.data.splice(0, 4);
-    } else if (relatedProducts.data.length > 8) {
-        relatedProducts.data = relatedProducts.data.splice(0, 8);
-    }
+        relatedProducts = await productService.listProductByCategoryId(detailProduct.data.category_id);
+        relatedProducts.data = relatedProducts.data.filter((product) => {
+            if (product.id !== detailProduct.data.id) {
+                return product;
+            }
+        })
+        // Slit list product into 4 or 8 product
+        if (relatedProducts.data.length > 4 && relatedProducts.data.length < 8) {
+            relatedProducts.data = relatedProducts.data.splice(0, 4);
+        } else if (relatedProducts.data.length > 8) {
+            relatedProducts.data = relatedProducts.data.splice(0, 8);
+        }
 
-    const listPost = await postService.listPost({ postsPerPage: 4, pageNumber: 1 });
-    return {
-        props: {
-            detailProduct: detailProduct.data,
-            relatedProducts: relatedProducts.data,
-            listPost: listPost.data,
-        },
-    };
+        listPost = await postService.listPost({ postsPerPage: 4, pageNumber: 1 });
+        return {
+            props: {
+                detailProduct: detailProduct.data || {},
+                relatedProducts: relatedProducts.data || [],
+                listPost: listPost.data || [],
+            },
+        };
+    } catch (error) {
+        return {
+            notFound: true
+        };
+    }
 }
 
 export default Product

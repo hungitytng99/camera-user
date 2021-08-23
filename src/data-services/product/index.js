@@ -66,13 +66,13 @@ export const filterFieldProduct = (product) => {
         id: product.id || 0,
         name: product.name || '',
         description: product.description || '',
-        detail: '<p>Hey this editor rocks 😀</p>',
+        detail: product.detail || '',
         price: numberWithCommas(product.price) || 0,
         discount: product.discount || 0,
         new_price: numberWithCommas(product.new_price) || 0,
         category_id: product.category_id || 0,
         slug: "/san-pham/" + product.slug || '',
-        image: filterFieldImage(product.list_product_images, product.name) || '',
+        image: filterFieldImage(product.list_product_images, product.name),
     }
 }
 
@@ -88,6 +88,8 @@ export const filterFieldImage = (listImage, alt) => {
             alt: alt + "_" + String(Math.floor(Math.random() * 1000)),
         }
     })
+
+
 }
 
 export function numberWithCommas(x) {

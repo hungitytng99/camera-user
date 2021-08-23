@@ -20,8 +20,6 @@
             text-decoration: line-through
             color: #494949
 
-        & span
-            margin-left: 4px
         &-new-price
             display: inline-block
             height: 46px
@@ -83,7 +81,10 @@
             &-title
                 font-weight: bold
                 text-transform: uppercase
-
+        &-short-desc
+            & ul
+                list-style: inside
+                padding-left: 2px
     &__contact-form
         background-color: $white
         margin: 30px 0px

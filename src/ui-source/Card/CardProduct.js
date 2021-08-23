@@ -45,7 +45,7 @@ function CardProduct(props) {
                 <div className="card-product__item-order-product ">
                     <Link href={product.slug} passHref>
                         <a className="card-product__img">
-                            {product.image[0] && <Image src={product.image[0]} layout="fill" objectFit="contain" alt="product" />}
+                            {product.image[0] && <Image src={product.image[0]} layout="fill" objectFit="cover" alt="product" />}
                         </a>
                     </Link>
                     <button onClick={showContactModal} className="card-product__item-order-btn">
