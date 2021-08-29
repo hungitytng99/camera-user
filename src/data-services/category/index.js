@@ -50,6 +50,6 @@ export const filterFieldCategory = (category) => {
         id: category.id,
         name: category.name,
         description: category.description,
-        slug: "/danh-muc/" + category.slug
+        slug: category.slug
     }
 }

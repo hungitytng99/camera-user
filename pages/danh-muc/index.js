@@ -42,9 +42,13 @@ const Category = (props) => {
     }
     const handleFilterPrice = async (e) => {
         const filterValue = e.target.value;
-        const moreProduct = await productService.listProduct({
+        const moreProduct = await productService.listProduct(filterOption[filterValue].maxPrice? {
             minPrice: filterOption[filterValue].minPrice,
             maxPrice: filterOption[filterValue].maxPrice,
+            productsPerPage: 18,
+            pageNumber: 1
+        }: {
+            minPrice: filterOption[filterValue].minPrice,
             productsPerPage: 18,
             pageNumber: 1
         });
@@ -56,6 +60,7 @@ const Category = (props) => {
 
     useEffect(() => {
         const checkShowHasMore = async () => {
+            console.log(filterPriceState.minPrice, "---", filterPriceState.maxPrice);
             const moreProduct = await productService.listProduct({
                 productsPerPage: 6, pageNumber: nextPage,
                 minPrice: filterPriceState.minPrice, maxPrice: filterPriceState.maxPrice
@@ -84,6 +89,9 @@ const Category = (props) => {
                     <Row>
                         <Col xs={12} md={9}>
                             <Row>
+                                {
+                                    listAllProductState.length === 0 ? <div style={{textAlign:'center', paddingTop:'5px'}}>Không có sản phẩm</div>:""
+                                }
                                 {listAllProductState.map(product => {
                                     return (
                                         <Col key={product.id} xs={12} sm={6} md={6} lg={4}>
@@ -121,8 +129,8 @@ const Category = (props) => {
                                             <label htmlFor="price-3">Từ 2-4 triệu</label>
                                         </li>
                                         <li className="category__filter-price-item">
-                                            <input type="radio" id="price-3" name="price" value="option_4" />
-                                            <label htmlFor="price-3">Hơn 4 triệu</label>
+                                            <input type="radio" id="price-4" name="price" value="option_4" />
+                                            <label htmlFor="price-4">Hơn 4 triệu</label>
                                         </li>
                                     </ul>
                                 </div>

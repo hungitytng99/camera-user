@@ -128,7 +128,7 @@ const Header = () => {
                                 {listCategory.map(category => {
                                     return (
                                         <li key={category.id} className="header-category__children-item">
-                                            <Link href={category.slug} >
+                                            <Link href={"/danh-muc/"+category.slug} >
                                                 <a className="header-category__children-link">{category.name}</a>
                                             </Link>
                                         </li>

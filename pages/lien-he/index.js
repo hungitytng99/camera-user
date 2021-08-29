@@ -65,7 +65,6 @@ const Search = (props) => {
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
                     </Col>
 
