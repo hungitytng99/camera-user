@@ -14,7 +14,7 @@ import { route } from 'next/dist/server/router';
 const Category = (props) => {
     const { detailCategory = { }, listCategory = [], hasMoreProduct = false } = props;
     const [detailCategoryState, setDetailCategoryState] = useState(detailCategory);
-    const [nextPage, setNextPage] = useState(4);
+    const [nextPage, setNextPage] = useState(2);
     const [hasMoreProductState, setHasMoreProductState] = useState(hasMoreProduct);
     const [currentFilter, setCurrentFilter] = useState({ });
 
@@ -43,7 +43,7 @@ const Category = (props) => {
         const filterValue = e.target.value;
         setCurrentFilter(filterOption[filterValue]);
         const filterProduct = await productService.listProductByCategorySlug(
-            detailCategoryState.slug, { ...filterOption[filterValue] }
+            detailCategoryState.slug, { productsPerPage: 18, pageNumber: 1, ...filterOption[filterValue] }
         );
         setDetailCategoryState({ ...detailCategoryState, listProduct: filterProduct.data })
     }
@@ -54,7 +54,6 @@ const Category = (props) => {
             { productsPerPage: 6, pageNumber: e.target.dataset.nextpage, ...currentFilter }
         );
         setDetailCategoryState({ ...detailCategoryState, listProduct: [...detailCategoryState.listProduct, ...listProduct.data] });
-
         setNextPage(nextPage + 1);
 
 
@@ -65,7 +64,7 @@ const Category = (props) => {
         // check has next page
         const checkShowMore = async () => {
             const moreProduct = await productService.listProductByCategorySlug(detailCategoryState.slug,
-                { productsPerPage: 6, pageNumber: Number(nextPage), ...currentFilter });
+                { productsPerPage: 3, pageNumber: Number(nextPage), ...currentFilter });
             if (moreProduct.data.length === 0) {
                 setHasMoreProductState(false);
             }
@@ -105,10 +104,14 @@ const Category = (props) => {
                                 })}
                             </Row>
                             <Row>
-                                {
-                                    hasMoreProductState && <div data-nextpage={nextPage} onClick={getMoreProduct}>More</div>
-                                }
-
+                                <div className="category__has-more-box">
+                                    {
+                                        hasMoreProductState && <div data-nextpage={nextPage} onClick={getMoreProduct}
+                                            className="category__has-more"
+                                        >More
+                                        </div>
+                                    }
+                                </div>
                             </Row>
                         </Col>
                         <Col md={3} className="hide-on-768">
@@ -168,11 +171,11 @@ export async function getServerSideProps(context) {
     const { category } = context.query;
     const listCategory = await categoryService.listCategory();
     const detailCategory = await categoryService.detailCategoryBySlug(category);
-    const listProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 18, pageNumber: 1 });
+    const listProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 3, pageNumber: 1 });
     detailCategory.data = { ...detailCategory.data, listProduct: listProduct.data };
     // for pagination
     let hasMoreProduct = false;
-    const moreProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 6, pageNumber: 4 });
+    const moreProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 3, pageNumber: 2 });
     if (moreProduct.data.length > 0) {
         hasMoreProduct = true;
     }
