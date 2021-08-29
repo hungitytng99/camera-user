@@ -14,7 +14,7 @@ import { route } from 'next/dist/server/router';
 const Category = (props) => {
     const { detailCategory = { }, listCategory = [], hasMoreProduct = false } = props;
     const [detailCategoryState, setDetailCategoryState] = useState(detailCategory);
-    const [nextPage, setNextPage] = useState(2);
+    const [nextPage, setNextPage] = useState(4);
     const [hasMoreProductState, setHasMoreProductState] = useState(hasMoreProduct);
     const [currentFilter, setCurrentFilter] = useState({ });
 
@@ -64,7 +64,7 @@ const Category = (props) => {
         // check has next page
         const checkShowMore = async () => {
             const moreProduct = await productService.listProductByCategorySlug(detailCategoryState.slug,
-                { productsPerPage: 3, pageNumber: Number(nextPage), ...currentFilter });
+                { productsPerPage: 6, pageNumber: Number(nextPage), ...currentFilter });
             if (moreProduct.data.length === 0) {
                 setHasMoreProductState(false);
             }
@@ -171,11 +171,11 @@ export async function getServerSideProps(context) {
     const { category } = context.query;
     const listCategory = await categoryService.listCategory();
     const detailCategory = await categoryService.detailCategoryBySlug(category);
-    const listProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 3, pageNumber: 1 });
+    const listProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 18, pageNumber: 1 });
     detailCategory.data = { ...detailCategory.data, listProduct: listProduct.data };
     // for pagination
     let hasMoreProduct = false;
-    const moreProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 3, pageNumber: 2 });
+    const moreProduct = await productService.listProductByCategoryId(detailCategory.data.id, { productsPerPage: 6, pageNumber: 4 });
     if (moreProduct.data.length > 0) {
         hasMoreProduct = true;
     }
