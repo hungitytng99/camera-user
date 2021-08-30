@@ -1,15 +1,12 @@
 import { Breadcrumb, Col, Row } from 'react-bootstrap';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect, useState } from 'react';
-import Link from 'next/link'
 import Head from 'next/head'
 import Layout from 'components/Layout/Layout';
 import CardWithTitle from 'ui-source/Card/CardWithTitle';
 import CardProduct from 'ui-source/Card/CardProduct';
 import { categoryService } from 'data-services/category';
 import { productService } from 'data-services/product';
-import { useRouter } from 'next/router'
-import { route } from 'next/dist/server/router';
 
 const Category = (props) => {
     const { detailCategory = { }, listCategory = [], hasMoreProduct = false } = props;
@@ -55,9 +52,6 @@ const Category = (props) => {
         );
         setDetailCategoryState({ ...detailCategoryState, listProduct: [...detailCategoryState.listProduct, ...listProduct.data] });
         setNextPage(nextPage + 1);
-
-
-        // console.log("LSIT: ", { ...detailCategoryState, listProduct: [...detailCategoryState.listProduct, ...listProduct.data] });
     }
 
     useEffect(() => {

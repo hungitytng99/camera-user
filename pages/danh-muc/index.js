@@ -42,12 +42,12 @@ const Category = (props) => {
     }
     const handleFilterPrice = async (e) => {
         const filterValue = e.target.value;
-        const moreProduct = await productService.listProduct(filterOption[filterValue].maxPrice? {
+        const moreProduct = await productService.listProduct(filterOption[filterValue].maxPrice ? {
             minPrice: filterOption[filterValue].minPrice,
             maxPrice: filterOption[filterValue].maxPrice,
             productsPerPage: 18,
             pageNumber: 1
-        }: {
+        } : {
             minPrice: filterOption[filterValue].minPrice,
             productsPerPage: 18,
             pageNumber: 1
@@ -90,7 +90,7 @@ const Category = (props) => {
                         <Col xs={12} md={9}>
                             <Row>
                                 {
-                                    listAllProductState.length === 0 ? <div style={{textAlign:'center', paddingTop:'5px'}}>Không có sản phẩm</div>:""
+                                    listAllProductState.length === 0 ? <div style={{ textAlign: 'center', paddingTop: '5px' }}>Không có sản phẩm</div> : ""
                                 }
                                 {listAllProductState.map(product => {
                                     return (
@@ -143,11 +143,9 @@ const Category = (props) => {
                                             listCategory.map(category => {
                                                 return (
                                                     <li key={category.id} className="category__filter-category-item">
-                                                        <Link href={category.slug}>
-                                                            <a>
-                                                                {category.name}
-                                                            </a>
-                                                        </Link>
+                                                        <a href={`/danh-muc/${category.slug}`}>
+                                                            {category.name}
+                                                        </a>
                                                     </li>
                                                 )
                                             })
