@@ -1,7 +1,7 @@
 // config for dev;
 export const Configs = {
   BASE_API: 'https://api.camerazone.vn/api',
-  DOMAIN: 'https://camerazone.vn/san-pham/',
+  DOMAIN: 'https://camerazone.vn/san-pham',
 
   CURRENT_PAGE: 1,
   FILE_MAXIMUM: 2, //MB
