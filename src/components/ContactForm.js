@@ -7,6 +7,7 @@ import InputField from 'ui-source/Form/InputField';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Configs } from 'app-configs';
 import { inquiryService } from 'data-services/inquiry';
+import { REQUEST_STATE } from 'app-configs';
 
 const phoneReg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
 const contactSchema = Yup.object().shape({
@@ -40,14 +41,17 @@ const ContactForm = (props) => {
         product_name: productName,
       };
       const response = await inquiryService.sendCustomerInquiry(inquiryBody);
-      setMessageAfterValidate(
-        'Cảm ơn bạn đã để lại thông tin. Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.',
-      );
-    } catch (error) {
-      setMessageAfterValidate(
-        'Một lỗi đã xảy ra. Vui lòng liên hệ 0986 795 960!',
-      );
-    }
+      console.log(response);
+      if (response.state !== REQUEST_STATE.ERROR) {
+        setMessageAfterValidate(
+          'Cảm ơn bạn đã để lại thông tin. Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.',
+        );
+      } else {
+        setMessageAfterValidate(
+          'Một lỗi đã xảy ra. Vui lòng liên hệ 0986 795 960 để đặt hàng!',
+        );
+      }
+    } catch (error) {}
   };
 
   useEffect(() => {
