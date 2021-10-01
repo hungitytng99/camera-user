@@ -7,7 +7,7 @@ module.exports = {
       return config
   },
   images: {
-      domains: ['bizweb.dktcdn.net','sc04.alicdn.com','sc02.alicdn.com','cameraipgiasi.com'],
+      domains: ['bizweb.dktcdn.net','sc04.alicdn.com','sc02.alicdn.com','cameraipgiasi.com','file.hstatic.net','hikvisionvietnam.com'],
   },
   poweredByHeader: false,
   generateEtags: false,
