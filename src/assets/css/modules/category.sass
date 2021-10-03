@@ -1,5 +1,7 @@
 .category
     &__filter
+        position: sticky
+        top: 105px
         &-title
             font-weight: bold
             font-size: 18px
@@ -18,7 +20,7 @@
             padding: 15px
             background-color: $white
             border-radius: 4px
-
+            margin-top: 15px
             &-item
                 padding: 2px 0px
                 display: flex
@@ -30,14 +32,17 @@
             padding: 15px
             background-color: $white
             border-radius: 4px
-            margin-top: 15px
             transition: all linear 0.3s
             &-item
-                padding: 4px 0px
+                padding: 6px 9px
+                background-color: $primary
+                margin-top: 6px
                 &:hover
-                    color: $primary
                     cursor: pointer
                     transform: translateX(3px)
+                & a
+                    color: #fff
+                    font-weight: 550
     &__has-more
         background-color: $primary
         width: 100px

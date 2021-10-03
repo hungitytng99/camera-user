@@ -41,6 +41,7 @@ const Product = (props) => {
   // if(detailProduct && Object.keys(detailProduct).length === 0 && detailProduct.constructor === Object) {
   //     return
   // }
+  console.log(detailProduct);
   return (
     <>
       <Head>
@@ -52,7 +53,9 @@ const Product = (props) => {
             <Col>
               <Breadcrumb className="product__breadcrumb">
                 <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
-                <Breadcrumb.Item href={detailProduct.category_slug}>
+                <Breadcrumb.Item
+                  href={`/danh-muc/${detailProduct.category_slug}`}
+                >
                   {detailProduct.category_name}
                 </Breadcrumb.Item>
                 <Breadcrumb.Item active>{detailProduct.name}</Breadcrumb.Item>
