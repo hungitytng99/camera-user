@@ -18,6 +18,10 @@ export default function MyApp({ Component, pageProps }) {
           Camera Anh Quang - Lắp đặt camera, đầu kĩ thuật số tại Bắc Ninh
         </title>
         <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+        <meta
           name="robots"
           content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
         ></meta>
@@ -29,10 +33,7 @@ export default function MyApp({ Component, pageProps }) {
           name="keywords"
           content="camera bac ninh, camera chat luong cao, camera uy tin, camera anh quang, cameara wifi, camera hanh trinh, camera gia re, camera hd-tv, camera chong trom, camera ip, dau ghi hinh dvr, nvr, camera ipc, ip, thiet bi quay phim, quay phat, mua camera tai bac ninh"
         ></meta>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        ></meta>
+
         <meta
           name="twitter:title"
           content="Lắp đặt camera, máy tính, báo động, thiết bị nhà thông minh tại Bắc Ninh"
