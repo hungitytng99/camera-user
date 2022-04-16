@@ -92,7 +92,7 @@ export default function Home(props) {
             );
           })}
 
-          <CardWithTitle title="Cảm nhận của khách hàng">
+          {/* <CardWithTitle title="Cảm nhận của khách hàng">
             <Carousel
               showThumbs={false}
               centerMode={true}
@@ -168,7 +168,7 @@ export default function Home(props) {
                 </span>
               </CardReview>
             </Carousel>
-          </CardWithTitle>
+          </CardWithTitle> */}
         </div>
       </Layout>
     </>
